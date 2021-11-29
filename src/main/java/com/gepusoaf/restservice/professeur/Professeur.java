@@ -1,4 +1,4 @@
-package com.gepusoaf.RestService.classe;
+package com.gepusoaf.restservice.professeur;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,11 +14,12 @@ import javax.persistence.Id;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Classe {
+public class Professeur {
     @Id
-    @Column(name = "num_classe", nullable = false)
+    @Column(name = "num_prof", nullable = false)
+    private int numProf;
+    @Column(name = "num_classe")
     private int numClasse;
-
-    @Column(name="nom_classe")
-    private String nomClasse;
+    @Column(name = "est_prof_principal")
+    private boolean estProfPrincipal;
 }

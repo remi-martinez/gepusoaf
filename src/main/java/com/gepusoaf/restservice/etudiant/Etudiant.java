@@ -1,4 +1,4 @@
-package com.gepusoaf.RestService.etudiant;
+package com.gepusoaf.restservice.etudiant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

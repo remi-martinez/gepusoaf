@@ -1,4 +1,4 @@
-package com.gepusoaf.RestService.entreprise;
+package com.gepusoaf.restservice.entreprise;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
