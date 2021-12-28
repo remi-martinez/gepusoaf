@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,29 +15,48 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Entreprise {
     @Id
-    @Column(name = "num_classe", nullable = false)
-    private int num_entreprise;
-    @Column(name="raison_sociale")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "num_entreprise", nullable = false)
+    private Integer id;
+
+    @Column(name = "raison_sociale", nullable = false, length = 128)
     private String raisonSociale;
-    @Column(name="nom_contact")
+
+    @Column(name = "nom_contact", length = 128)
     private String nomContact;
-    @Column(name="nom_resp")
+
+    @Column(name = "nom_resp", length = 128)
     private String nomResp;
-    @Column(name="rue_entreprise")
+
+    @Column(name = "rue_entreprise", length = 128)
     private String rueEntreprise;
-    @Column(name="cp_entreprise")
-    private int cpEntreprise;
-    @Column(name="ville_entreprise")
+
+    @Column(name = "cp_entreprise")
+    private Integer cpEntreprise;
+
+    @Column(name = "ville_entreprise", nullable = false, length = 128)
     private String villeEntreprise;
-    @Column(name="tel_entreprise")
+
+    @Column(name = "tel_entreprise", length = 32)
     private String telEntreprise;
-    @Column(name="fax_entreprise")
+
+    @Column(name = "fax_entreprise", length = 32)
     private String faxEntreprise;
+
+    @Column(name = "email", length = 128)
     private String email;
+
+    @Type(type = "text")
+    @Column(name = "observation")
     private String observation;
-    @Column(name="site_entreprise")
+
+    @Column(name = "site_entreprise", length = 128)
     private String siteEntreprise;
+
+    @Column(name = "niveau", nullable = false, length = 32)
     private String niveau;
-    @Column(name="en_activite")
-    private boolean enActivite;
+
+    @Column(name = "en_activite", nullable = false)
+    private Boolean enActivite = false;
+
 }

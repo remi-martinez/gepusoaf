@@ -1,13 +1,13 @@
 package com.gepusoaf.restservice.etudiant;
 
+import com.gepusoaf.restservice.classe.Classe;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -15,19 +15,32 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Etudiant {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_etudiant", nullable = false)
-    private int numEtudiant;
-    @Column(name = "nom_etudiant")
+    private Integer id;
+
+    @Column(name = "nom_etudiant", nullable = false, length = 64)
     private String nomEtudiant;
-    @Column(name = "prenom_etudiant")
+
+    @Column(name = "prenom_etudiant", nullable = false, length = 64)
     private String prenomEtudiant;
+
     @Column(name = "annee_obtention")
-    private int anneeObtention;
+    private LocalDate anneeObtention;
+
+    @Column(name = "login", nullable = false, length = 8)
     private String login;
+
+    @Column(name = "mdp", nullable = false, length = 30)
     private String mdp;
-    @Column(name = "num_classe")
-    private int numClasse;
-    @Column(name = "en_activite")
-    private boolean enActivite;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "num_classe", nullable = false)
+    private Classe numClasse;
+
+    @Column(name = "en_activite", nullable = false)
+    private Boolean enActivite = false;
+
 }

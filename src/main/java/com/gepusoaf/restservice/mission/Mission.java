@@ -1,13 +1,12 @@
 package com.gepusoaf.restservice.mission;
 
+import com.gepusoaf.restservice.stage.Stage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -15,10 +14,17 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Mission {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_mission", nullable = false)
-    private int numMission;
+    private Integer id;
+
+    @Column(name = "libelle", nullable = false, length = 128)
     private String libelle;
-    @Column(name = "num_stage")
-    private int numStage;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "num_stage", nullable = false)
+    private Stage numStage;
+
 }

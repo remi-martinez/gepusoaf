@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,9 +14,11 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Classe {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_classe", nullable = false)
-    private int numClasse;
+    private Integer id;
 
-    @Column(name="nom_classe")
+    @Column(name = "nom_classe", nullable = false, length = 128)
     private String nomClasse;
+
 }

@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -15,9 +13,13 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Specialite {
+
     @Id
-    @Column(name = "num_entreprise", nullable = false)
-    private int numEntreprise;
-    @Column(name = "num_spec")
-    private int numSpec;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "num_spec", nullable = false)
+    private Integer id;
+
+    @Column(name = "libelle", nullable = false, length = 128)
+    private String libelle;
+
 }

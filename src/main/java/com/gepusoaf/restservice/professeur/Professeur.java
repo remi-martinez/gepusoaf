@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -15,11 +13,27 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Professeur {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_prof", nullable = false)
-    private int numProf;
-    @Column(name = "num_classe")
-    private int numClasse;
-    @Column(name = "est_prof_principal")
-    private boolean estProfPrincipal;
+    private Integer id;
+
+    @Column(name = "nom_prof", nullable = false, length = 64)
+    private String nomProf;
+
+    @Column(name = "prenom_prof", nullable = false, length = 64)
+    private String prenomProf;
+
+    @Column(name = "login", nullable = false, length = 8)
+    private String login;
+
+    @Column(name = "mdp", nullable = false, length = 8)
+    private String mdp;
+
+    @Column(name = "email", nullable = false, length = 100)
+    private String email;
+
+
+
 }
