@@ -1,4 +1,13 @@
 import React from 'react';
+import HomeCard from "./HomeCard";
+
+const itemProps = {
+    backgroundColor: 'mono300',
+    height: 'scale500',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+};
 
 function Home() {
 
@@ -6,8 +15,9 @@ function Home() {
         <>
             <h1>Stage BTS</h1>
             <p>Bienvenue sur la page de gestion des stages</p>
-            <hr/>
-            <img src="working-man.png" width={200}/>
+            <div align={"center"}>
+                <HomeCard/>
+            </div>
         </>
     );
 

@@ -1,6 +1,8 @@
 import * as React from "react";
-import Navigation from "./navigation/Navigation";
-import Help from "./help/Help";
+import Navigation from "../navigation/Navigation";
+import Home from "../home/Home";
+import Inscription from "../inscription/Inscription";
+import Help from "../help/Help";
 
 const centered = {
     textAlign: 'center',
@@ -15,7 +17,8 @@ function MainLayout() {
             <Navigation/>
             <div style={centered}>
                 {/*<Home/>*/}
-                <Help/>
+                {/*<Help/>*/}
+                <Inscription/>
             </div>
         </>
     );
