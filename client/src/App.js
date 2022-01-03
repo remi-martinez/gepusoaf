@@ -3,7 +3,7 @@ import React from 'react';
 import {Client as Styletron} from 'styletron-engine-atomic';
 import {Provider as StyletronProvider} from 'styletron-react';
 import {LightTheme, BaseProvider} from 'baseui';
-import MainLayout from "./MainLayout";
+import MainLayout from "./layout/MainLayout";
 const engine = new Styletron();
 
 
