@@ -13,6 +13,7 @@ function NavigationBar() {
         {label: "Entreprise", pathname: "/entreprise"},
         {label: "Stagiaire", pathname: "/stagiaire"},
         {label: "Inscription", pathname: "/inscription"},
+        {label: "[DEBUG] Login page", pathname: "/login"},
     ]);
 
     const titleWithTooltip = () => {

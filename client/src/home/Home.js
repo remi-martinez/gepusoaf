@@ -13,13 +13,13 @@ const itemProps = {
 function Home() {
 
     return (
-        <>
+        <div style={{textAlign: 'center'}}>
             <h1>Stage BTS</h1>
             <p>Bienvenue sur la page de gestion des stages</p>
             <div align={"center"}>
                 <HomeCard/>
             </div>
-        </>
+        </div>
     );
 
 }

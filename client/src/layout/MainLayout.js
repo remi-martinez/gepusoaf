@@ -5,6 +5,7 @@ import Home from "../home/Home";
 import Help from "../help/Help";
 import Inscription from "../inscription/Inscription";
 import StudentPage from "../student/StudentPage";
+import LoginPage from "../login/LoginPage";
 
 function MainLayout() {
     return (
@@ -18,6 +19,7 @@ function MainLayout() {
                     <Route path="inscription" element={<Inscription/>}/>
                     <Route path="aide" element={<Help/>}/>
                     <Route path="disconnect" element={<p>disconnect</p>}/>
+                    <Route path="login" element={<LoginPage/>}/>
                 </Routes>
             </div>
         </>
