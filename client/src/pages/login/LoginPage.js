@@ -9,16 +9,11 @@ import {Notification} from "baseui/notification";
 
 function LoginPage() {
     const [value, setValue] = useState('');
-    return(
+    return (
         <>
             <Notification
-                classN
                 overrides={{
-                    Body: {
-                        style: () => ({
-                            outline: 'red'
-                        })
-                    }
+                    Body: {style: {width: 'auto'}},
                 }}>
                 <h1>Gestion des stages</h1>
                 <p>Vous n'êtes pas connecté. Identifiez-vous pour poursuivre la navigation.</p>

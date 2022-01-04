@@ -1,11 +1,12 @@
 import * as React from "react";
 import NavigationBar from "../navigation/NavigationBar";
 import {Route, Routes} from "react-router-dom";
-import Home from "../home/Home";
-import Help from "../help/Help";
-import Inscription from "../inscription/Inscription";
-import StudentPage from "../student/StudentPage";
-import LoginPage from "../login/LoginPage";
+import Home from "../../pages/home/Home";
+import Help from "../../pages/help/Help";
+import Inscription from "../../pages/inscription/Inscription";
+import StudentPage from "../../pages/student/StudentPage";
+import LoginPage from "../../pages/login/LoginPage";
+import Entreprises from "../../pages/entreprises/Entreprises";
 
 function MainLayout() {
     return (
@@ -14,7 +15,7 @@ function MainLayout() {
             <div style={{padding: 20}}>
                 <Routes>
                     <Route index path="/" element={<Home/>}/>
-                    <Route path="entreprise" element={<p>todo : entreprise</p>}/>
+                    <Route path="entreprises" element={<Entreprises/>}/>
                     <Route path="stagiaire" element={<StudentPage/>}/>
                     <Route path="inscription" element={<Inscription/>}/>
                     <Route path="aide" element={<Help/>}/>

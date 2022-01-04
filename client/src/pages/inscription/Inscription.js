@@ -13,8 +13,8 @@ function Inscription() {
             <div className={styles.inscriptionFlex}>
                 <Card title="Contact">
                     <StyledBody>
-                        <div className={styles.cardFlex}>
-                            <FormControl label="Entreprise">
+                        <div>
+                            <FormControl label="Entreprises">
                                 <Input
                                     id="input-id"
                                     value={value}

@@ -10,7 +10,7 @@ function NavigationBar() {
 
     const [mainItems, setMainItems] = useState([
         {label: "Accueil", pathname: "/"},
-        {label: "Entreprise", pathname: "/entreprise"},
+        {label: "Entreprises", pathname: "/entreprises"},
         {label: "Stagiaire", pathname: "/stagiaire"},
         {label: "Inscription", pathname: "/inscription"},
         {label: "[DEBUG] Login page", pathname: "/login"},
@@ -21,7 +21,11 @@ function NavigationBar() {
                 <StatefulTooltip content={() => (
                     <span>Gestion des Entreprises Proposant Un Stage Ou un Apprentissage Facilement !</span>
                 )}>
-                    <span style={{cursor: 'pointer'}} onClick={() => navigate('/')}>☕ GEPUSOAF</span>
+                    <span style={{cursor: 'pointer'}} onClick={() => {
+                        setMainItems(prev => setItemActive(prev, {label: "Accueil"}));
+                        navigate('/');
+
+                    }}>☕ GEPUSOAF</span>
                 </StatefulTooltip>
         );
     }
