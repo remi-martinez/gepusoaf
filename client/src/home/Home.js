@@ -1,5 +1,6 @@
 import React from 'react';
 import HomeCard from "./HomeCard";
+import {Link} from "react-router-dom";
 
 const itemProps = {
     backgroundColor: 'mono300',

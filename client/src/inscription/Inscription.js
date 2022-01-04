@@ -3,16 +3,17 @@ import {FormControl} from "baseui/form-control";
 import {Input} from "baseui/input";
 import {Card, StyledAction, StyledBody} from "baseui/card";
 import {Button} from "baseui/button";
+import styles from './inscription.module.css';
 
 function Inscription() {
     const [value, setValue] = useState('');
     return (
         <>
             <h1>Inscription</h1>
-            <div className="inscription-flex">
+            <div className={styles.inscriptionFlex}>
                 <Card title="Contact">
                     <StyledBody>
-                        <div>
+                        <div className={styles.cardFlex}>
                             <FormControl label="Entreprise">
                                 <Input
                                     id="input-id"
@@ -44,7 +45,7 @@ function Inscription() {
                         <Button>Enregistrer</Button>
                     </StyledAction>
                 </Card>
-                <Card title="Description du stage">
+                <Card title="Description du stage" style={{width: '50%'}}>
                     <StyledBody>
                         <div>
                             <FormControl label="Date de début du stage">

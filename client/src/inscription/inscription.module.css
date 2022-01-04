@@ -1,0 +1,7 @@
+.inscriptionFlex {
+    flex-wrap: wrap;
+}
+
+.cardFlex {
+    display: flex;
+}
