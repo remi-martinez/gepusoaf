@@ -18,7 +18,7 @@ public class Mission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_mission", nullable = false)
-    private Integer id;
+    private Integer numMission;
 
     @Column(name = "libelle", nullable = false, length = 128)
     private String libelle;

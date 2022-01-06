@@ -23,7 +23,7 @@ public class Stage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_stage", nullable = false)
-    private Integer id;
+    private Integer numStage;
 
     @Column(name = "debut_stage", nullable = false)
     private Instant debutStage;

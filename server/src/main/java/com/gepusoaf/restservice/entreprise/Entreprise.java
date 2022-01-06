@@ -1,9 +1,6 @@
 package com.gepusoaf.restservice.entreprise;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -11,13 +8,14 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Entreprise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_entreprise", nullable = false)
-    private Integer id;
+    private Integer numEntreprise;
 
     @Column(name = "raison_sociale", nullable = false, length = 128)
     private String raisonSociale;
