@@ -30,7 +30,22 @@ public class EtudiantController {
     }
 
     @PostMapping("/connexion")
-    boolean connect(@Validated @RequestBody Credentials credentials) {
+    boolean connectEtudiant(@Validated @RequestBody Credentials credentials) {
         return etudiantService.connect(credentials);
+    }
+
+    @PostMapping("/")
+    Etudiant createEtudiant(@Validated @RequestBody Etudiant etudiant) {
+        return etudiantService.createEtudiant(etudiant);
+    }
+
+    @PutMapping("/{id}")
+    Etudiant updateEtudiant(@PathVariable int id, @Validated @RequestBody Etudiant etudiantDetails) {
+        return etudiantService.updateEtudiant(id, etudiantDetails);
+    }
+
+    @DeleteMapping("/{id}")
+    int deleteEtudiant(@PathVariable int id) {
+        return etudiantService.deleteEtudiant(id);
     }
 }
