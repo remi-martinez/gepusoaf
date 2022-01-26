@@ -7,6 +7,7 @@ import Inscription from "../../pages/inscription/Inscription";
 import StudentPage from "../../pages/student/StudentPage";
 import LoginPage from "../../pages/login/LoginPage";
 import Entreprises from "../../pages/entreprises/Entreprises";
+import StudentAddPage from "../../pages/student/StudentAddPage";
 
 function MainLayout() {
     return (
@@ -17,6 +18,7 @@ function MainLayout() {
                     <Route index path="/" element={<Home/>}/>
                     <Route path="entreprises" element={<Entreprises/>}/>
                     <Route path="stagiaire" element={<StudentPage/>}/>
+                    <Route path="stagiaire/ajouter" element={<StudentAddPage/>}/>
                     <Route path="inscription" element={<Inscription/>}/>
                     <Route path="aide" element={<Help/>}/>
                     <Route path="disconnect" element={<p>disconnect</p>}/>

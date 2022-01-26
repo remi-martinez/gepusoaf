@@ -1,44 +1,55 @@
 import React from 'react';
-import {FormControl} from "baseui/form-control";
-import {Input} from "baseui/input";
+import {Button} from "baseui/button";
+import {StatefulDataTable, StringColumn} from "baseui/data-table";
+import {useNavigate} from "react-router-dom";
 
-const leftCentered = {
-    textAlign: 'left'
+const marginSide = {
+    marginRight: 10
 };
 
 function StudentPage() {
+    const navigate = useNavigate();
+    const handleClick = () => navigate('/stagiaire/ajouter');
+
+    const columns = [
+        StringColumn({
+            title: 'Etudiants',
+            mapDataToValue: (data) => data[0],
+        }),
+        StringColumn({
+            title: 'Entreprise',
+            mapDataToValue: (data) => data[1],
+        }),
+        StringColumn({
+            title: 'Professeur',
+            mapDataToValue: (data) => data[2],
+        }),
+    ];
+
+    const rows = [{
+        id:'0',
+        data: [
+            'Etudiants','Entreprise','Professeur'
+        ]
+    }];
 
     return (
         <>
-            <div style={leftCentered}>
-                <h1>Étudiant</h1>
-                <p>Informations concernant l'étudiant</p>
+            <div>
+                <Button
+                    style={marginSide}
+                    startEnhancer="➕"
+                    onClick={handleClick}>
+                    Ajouter un stagiaire
+
+                </Button>
             </div>
-            <form onSubmit={e => e.preventDefault()}>
-                <FormControl label="Nom">
-                    <Input
-                        required={true}
-                        id="lastname"
-                        value={"Martinez"}
-                        onChange={() => {}}
-                    />
-                </FormControl>
-                <FormControl label="Prénom">
-                    <Input
-                        required={true}
-                        id="first name"
-                        value={"Rémi"}
-                        onChange={() => {}}
-                    />
-                </FormControl>
-                <FormControl label="Nom d'utilisateur">
-                    <Input
-                        id="username"
-                        value={"remi-martinez"}
-                        onChange={() => {}}
-                    />
-                </FormControl>
-            </form>
+            <div style={{height: '300px'}}>
+                <StatefulDataTable
+                    columns={columns}
+                    rows={rows}
+                />
+            </div>
         </>
     );
 

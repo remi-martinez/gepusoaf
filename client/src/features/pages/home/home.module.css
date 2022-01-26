@@ -1,0 +1,12 @@
+.homeCardAnimated {
+  animation: popIn 1s linear;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

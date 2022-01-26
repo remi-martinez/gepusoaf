@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Notification} from "baseui/notification";
 import EntreprisesList from "../../components/entreprises/EntreprisesList";
-import {Spinner} from "baseui/spinner";
+import {StyledSpinnerNext} from "baseui/spinner";
 
 function Entreprises() {
     const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ function Entreprises() {
                 }}>
                 <p>Retrouvez ici toutes les entreprises !</p>
             </Notification>
-            { loading ? <Spinner/> : <EntreprisesList/>}
+            { loading ? <StyledSpinnerNext/> : <EntreprisesList/>}
         </>
     );
 }
