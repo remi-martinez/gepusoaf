@@ -1,15 +1,13 @@
 package com.gepusoaf.restservice.professeur;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Professeur {
@@ -17,7 +15,7 @@ public class Professeur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_prof", nullable = false)
-    private Integer id;
+    private Integer numProf;
 
     @Column(name = "nom_prof", nullable = false, length = 64)
     private String nomProf;

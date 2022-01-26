@@ -3,10 +3,7 @@ package com.gepusoaf.restservice.stage;
 import com.gepusoaf.restservice.entreprise.Entreprise;
 import com.gepusoaf.restservice.etudiant.Etudiant;
 import com.gepusoaf.restservice.professeur.Professeur;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Stage {
@@ -23,7 +21,7 @@ public class Stage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_stage", nullable = false)
-    private Integer id;
+    private Integer numStage;
 
     @Column(name = "debut_stage", nullable = false)
     private Instant debutStage;

@@ -1,10 +1,7 @@
 package com.gepusoaf.restservice.etudiant;
 
 import com.gepusoaf.restservice.classe.Classe;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Etudiant {
@@ -19,7 +17,7 @@ public class Etudiant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_etudiant", nullable = false)
-    private Integer id;
+    private Integer numEtudiant;
 
     @Column(name = "nom_etudiant", nullable = false, length = 64)
     private String nomEtudiant;
