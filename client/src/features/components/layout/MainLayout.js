@@ -8,11 +8,13 @@ import StudentPage from "../../pages/student/StudentPage";
 import LoginPage from "../../pages/login/LoginPage";
 import Entreprises from "../../pages/entreprises/Entreprises";
 import StudentAddPage from "../../pages/student/StudentAddPage";
+import {ToasterContainer} from "baseui/toast";
 
 function MainLayout() {
     return (
         <>
             <NavigationBar/>
+            <ToasterContainer/>
             <div style={{padding: 20}}>
                 <Routes>
                     <Route index path="/" element={<Home/>}/>
