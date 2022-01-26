@@ -44,7 +44,7 @@ public class EtudiantService {
 
     public Etudiant updateEtudiant(int id, Etudiant eInput) {
         etudiantRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Etudiant id " + id + " introuvable."));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Etudiant id %d introuvable.", id)));
 
         Etudiant e = Etudiant.builder()
                 .nomEtudiant(eInput.getNomEtudiant())

@@ -1,10 +1,8 @@
 package com.gepusoaf.restservice.classe;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,5 +26,20 @@ public class ClasseController {
     @GetMapping("/{id}")
     Optional<Classe> findById(@PathVariable int id) {
         return classeService.findById(id);
+    }
+
+    @PostMapping("/")
+    Classe createClasse(@Validated @RequestBody Classe classe) {
+        return classeService.createClasse(classe);
+    }
+
+    @PutMapping("/{id}")
+    Classe updateClasse(@PathVariable int id, @Validated @RequestBody Classe classeDetails) {
+        return classeService.updateClasse(id, classeDetails);
+    }
+
+    @DeleteMapping("/{id}")
+    int delete(@PathVariable int id) {
+        return classeService.deleteClasse(id);
     }
 }

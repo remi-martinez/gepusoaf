@@ -1,10 +1,8 @@
 package com.gepusoaf.restservice.stage;
 
 import com.gepusoaf.restservice.entreprise.Entreprise;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,5 +25,20 @@ public class StageController {
     @GetMapping("/{id}")
     Optional<Stage> findById(@PathVariable int id) {
         return stageService.findById(id);
+    }
+
+    @PostMapping("/")
+    Stage createStage(@Validated @RequestBody Stage stage) {
+        return stageService.createStage(stage);
+    }
+
+    @PutMapping("/{id}")
+    Stage updateStage(@PathVariable int id, @Validated @RequestBody Stage stageDetails) {
+        return stageService.updateStage(id, stageDetails);
+    }
+
+    @DeleteMapping("/{id}")
+    int deleteStage(@PathVariable int id) {
+        return stageService.deleteStage(id);
     }
 }

@@ -3,10 +3,7 @@ package com.gepusoaf.restservice.stage;
 import com.gepusoaf.restservice.entreprise.Entreprise;
 import com.gepusoaf.restservice.etudiant.Etudiant;
 import com.gepusoaf.restservice.professeur.Professeur;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Stage {
