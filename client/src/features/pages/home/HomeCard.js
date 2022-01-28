@@ -7,7 +7,6 @@ import {Textarea} from "baseui/textarea";
 import {StyledSpinnerNext} from "baseui/spinner";
 import ToasterService from "../../services/ToasterService";
 import {ButtonGroup} from "baseui/button-group";
-import {Toast} from "baseui/toast";
 
 // MODEL
 const data = {
@@ -33,7 +32,6 @@ function HomeCard() {
                     setItems(data._embedded.professeurs)
                     setLoading(false);
                     ToasterService.success("✔ Requête effectuée !")
-                    console.log(items);
                 },
                 (error) => {
                     setLoading(false);
@@ -60,7 +58,6 @@ function HomeCard() {
                 (data) => {
                     setItems(data)
                     setLoading(false);
-                    console.log(items);
                 },
                 (error) => {
                     setLoading(false);

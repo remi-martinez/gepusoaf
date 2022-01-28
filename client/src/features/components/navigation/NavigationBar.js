@@ -3,8 +3,9 @@ import {useState} from "react";
 import {useNavigate} from 'react-router-dom'
 import {AppNavBar, setItemActive} from "baseui/app-nav-bar";
 import {StatefulTooltip} from "baseui/tooltip";
+import Utils from "../../shared/Utils";
 
-function NavigationBar() {
+function NavigationBar({user}) {
 
     const navigate = useNavigate();
 
@@ -12,8 +13,7 @@ function NavigationBar() {
         {label: "Accueil", pathname: "/"},
         {label: "Entreprises", pathname: "/entreprises"},
         {label: "Stagiaire", pathname: "/stagiaire"},
-        {label: "Inscription", pathname: "/inscription"},
-        {label: "[DEBUG] Login page", pathname: "/login"},
+        {label: "Inscription", pathname: "/inscription"}
     ]);
 
     const titleWithTooltip = () => {
@@ -31,23 +31,41 @@ function NavigationBar() {
     }
 
     return (
-        <AppNavBar
-            title={titleWithTooltip()}
-            mainItems={mainItems}
-            onMainItemSelect={item => {
-                setMainItems(prev => setItemActive(prev, item));
-                navigate(item.pathname)
-            }}
-            username="Rémi Martinez"
-            usernameSubtitle="Étudiant"
-            userItems={[
-                {label: "Aide", pathname: "/aide"},
-                {label: "Déconnexion", pathname: "disconnect"}
-            ]}
-            onUserItemSelect={item => {
-                navigate(item.pathname)
-            }}
-        />
+       <>
+           {
+               user.connected ?
+                   (
+                           <AppNavBar
+                               title={titleWithTooltip()}
+                               mainItems={mainItems}
+                               onMainItemSelect={item => {
+                                   setMainItems(prev => setItemActive(prev, item));
+                                   navigate(item.pathname)
+                               }}
+                               username={Utils.usernameFormat(user)}
+                               usernameSubtitle={Utils.userStatusFormat(user)}
+                               userItems={[
+                                   {label: "Aide", pathname: "/aide"},
+                                   {label: "Déconnexion", pathname: "disconnect"}
+                               ]}
+                               onUserItemSelect={item => {
+                                   navigate(item.pathname)
+                               }}
+                           />
+                   ) :
+                   (
+                       <AppNavBar
+                           title={titleWithTooltip()}
+                           mainItems={[{label: "Connexion", pathname: "/login"}]}
+                           onMainItemSelect={item => {
+                               setMainItems(prev => setItemActive(prev, item));
+                               navigate(item.pathname)
+                           }}
+                       />
+                   )
+
+           }
+       </>
     );
 }
 

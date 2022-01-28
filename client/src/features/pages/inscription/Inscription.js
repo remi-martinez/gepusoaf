@@ -33,7 +33,6 @@ function Inscription() {
                 (data) => {
                     setProfesseurs(data._embedded.professeurs)
                     ToasterService.success("✔ Requête effectuée !")
-                    console.log(professeurs);
                 },
                 (error) => {
                     Exception.throw(error.toString())
@@ -44,7 +43,7 @@ function Inscription() {
     const generateProfList = () => {
         let profs = [];
         professeurs.map((p) => {
-            profs.push({label: `${p.prenomProf} ${p.nomProf}`, id: p.login})
+            return profs.push({label: `${p.prenomProf} ${p.nomProf}`, id: p.login})
         });
         return profs;
     }
