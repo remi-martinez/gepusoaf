@@ -8,16 +8,6 @@ import {StyledSpinnerNext} from "baseui/spinner";
 import ToasterService from "../../services/ToasterService";
 import {ButtonGroup} from "baseui/button-group";
 
-// MODEL
-const data = {
-    _embedded: {
-        professeurs: {
-            nomProf: '',
-            prenomProf: '',
-        }
-    }
-}
-
 function HomeCard() {
 
     const [error, setError] = useState(null);
@@ -56,7 +46,7 @@ function HomeCard() {
         })
             .then(
                 (data) => {
-                    setItems(data)
+                    console.log(data)
                     setLoading(false);
                 },
                 (error) => {

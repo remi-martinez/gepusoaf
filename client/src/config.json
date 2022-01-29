@@ -1,6 +1,6 @@
 {
-  "apiUrl": "https://gepusoaf.herokuapp.com",
-  "apiUrlLocal": "http://localhost:8080",
+  "apiUrl": "https://gepusoaf.herokuapp.com/api",
+  "apiUrlLocal": "http://localhost:8080/api",
   "isLocal": false,
-  "forceLogin": true
+  "forceLogin": false
 }

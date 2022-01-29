@@ -6,15 +6,50 @@ import {Button} from "baseui/button";
 import {Radio, RadioGroup} from "baseui/radio";
 import {ALIGN} from "baseui/header-navigation";
 import {Notification} from "baseui/notification";
+import LoginService from "../../services/LoginService";
+import ToasterService from "../../services/ToasterService";
+import {useNavigate} from "react-router-dom";
 
-function LoginPage() {
+function LoginPage(props) {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('student');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate()
 
     const handleButtonClick = (e) => {
+        setLoading(true);
         e.preventDefault();
-        // TODO : login
+        LoginService.login(login, password, status)
+            .then((result) => {
+                if(status === 'teacher') {
+                    const newUser = {
+                        connected: true,
+                        login: result.login,
+                        firstname: result.prenomProf,
+                        lastname: result.nomProf,
+                        status: 'teacher'
+                    }
+                    props.onUserChange(newUser);
+                    LoginService.setUserCookie(newUser);
+                } else if (status === 'student') {
+                    const newUser = {
+                        connected: true,
+                        login: result.login,
+                        firstname: result.prenomEtudiant,
+                        lastname: result.nomEtudiant,
+                        status: 'student'
+                    }
+                    props.onUserChange(newUser)
+                    LoginService.setUserCookie(newUser);
+                }
+                navigate('/')
+                ToasterService.success("Connecté avec succès !")
+                setLoading(false);
+            }, () => {
+                setLoading(false)
+                ToasterService.error("Erreur de connexion")
+            });
     }
 
     return (
@@ -66,7 +101,8 @@ function LoginPage() {
                     </StyledBody>
                     <StyledAction>
                         <Button disabled={!(login && password)}
-                                onClick={(e) => handleButtonClick(e)}>Enregistrer</Button>
+                                isLoading={loading}
+                                onClick={(e) => handleButtonClick(e)}>Connexion</Button>
                     </StyledAction>
                 </form>
             </Card>
