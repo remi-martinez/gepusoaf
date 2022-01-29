@@ -1,6 +1,9 @@
 import React from 'react';
 import config from '../../config.json'
 
+const apiUrl = config.isLocal ? config.apiUrlLocal : config.apiUrl;
+console.log(apiUrl)
+
 class ApiService extends React.Component {
 
     constructor(props) {
@@ -12,18 +15,16 @@ class ApiService extends React.Component {
         };
     }
     static callGet(route) {
-        return fetch(`${config.apiUrl}/api/${route}`, {
+        return fetch(`${apiUrl}/api/${route}`, {
             method: 'GET'
         }).then(data => data.json());
     }
 
     static callPost(route, body) {
-        return fetch(`${config.apiUrl}/api/${route}`, {
+        return fetch(`${apiUrl}/api/${route}`, {
             method: 'POST',
-            headers: {
-                accept: 'application/json',
-                body: JSON.stringify(body)
-            }
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
         }).then(data => data.json());
     }
 
