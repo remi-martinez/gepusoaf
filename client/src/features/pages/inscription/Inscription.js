@@ -32,7 +32,6 @@ function Inscription() {
             .then(
                 (data) => {
                     setProfesseurs(data._embedded.professeurs)
-                    ToasterService.success("✔ Requête effectuée !")
                 },
                 (error) => {
                     Exception.throw(error.toString())

@@ -14,7 +14,9 @@ import PageNotFound from "../../pages/404/PageNotFound";
 import config from '../../../config.json'
 import Disconnect from "../../pages/login/Disconnect";
 import LoginService from "../../services/LoginService";
-import EntrepriseDetails from "../entreprises/EntrepriseDetails";
+import EntrepriseDetails from "../../pages/entreprises/EntrepriseDetails";
+import EntrepriseCreation from "../../pages/entreprises/EntrepriseCreation";
+import EntrepriseEdition from "../../pages/entreprises/EntrepriseEdition";
 
 function MainLayout() {
     const [user, setUser] = useState({connected: false, login: '', firstname: '', lastname: '', status: ''});
@@ -47,6 +49,8 @@ function MainLayout() {
                         <Route index path="/" element={<Home/>}/>
                         <Route path="entreprises" element={<Entreprises/>}/>
                         <Route path="entreprises/:id" element={<EntrepriseDetails/>}/>
+                        <Route path="entreprises/:id/edit" element={<EntrepriseEdition/>}/>
+                        <Route path="entreprises/new" element={<EntrepriseCreation/>}/>
                         <Route path="stagiaire" element={<StudentPage/>}/>
                         <Route path="stagiaire/ajouter" element={<StudentAddPage/>}/>
                         <Route path="inscription" element={<Inscription/>}/>
