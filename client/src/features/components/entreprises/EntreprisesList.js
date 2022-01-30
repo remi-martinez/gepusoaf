@@ -1,153 +1,161 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useStyletron} from 'baseui';
-import {
-    StatefulDataTable,
-    BooleanColumn,
-    CategoricalColumn,
-    CustomColumn,
-    NumericalColumn,
-    StringColumn,
-    COLUMNS,
-    NUMERICAL_FORMATS,
-} from 'baseui/data-table';
-// https://gist.github.com/6174/6062387
-function pseudoRandomString(rowIdx, columnIdx) {
-    return (
-        (0.88 * rowIdx)
-            .toString(36)
-            .replace('.', '')
-            .substring(2) +
-        (0.99 * columnIdx).toString(36).replace('.', '')
-    ).slice(0, 10);
-}
-function makeRowsFromColumns(columns, rowCount) {
-    const rows = [];
-    for (let i = 0; i < rowCount; i++) {
-        rows.push({
-            id: i,
-            data: columns.map((column, j) => {
-                switch (column.kind) {
-                    case COLUMNS.CATEGORICAL:
-                        switch (i % 11) {
-                            case 11:
-                                return 'UberX';
-                            case 10:
-                                return 'UberXL';
-                            case 9:
-                                return 'Uber Select';
-                            case 8:
-                                return 'Uber Comfort';
-                            case 7:
-                                return 'Uber Pool';
-                            case 6:
-                                return 'Uber Black';
-                            case 5:
-                                return 'Uber Assist';
-                            case 4:
-                                return 'Uber WAV';
-                            case 3:
-                                return 'Transit';
-                            case 2:
-                                return 'Taxi';
-                            case 1:
-                                return 'Bike';
-                            case 0:
-                            default:
-                                return 'Scooter';
-                        }
-                    case COLUMNS.NUMERICAL:
-                        return i % 2 ? i - 1 : i + 3;
-                    case COLUMNS.BOOLEAN:
-                        return i % 2 === 0;
-                    case COLUMNS.STRING:
-                        return pseudoRandomString(i, j);
-                    case COLUMNS.CUSTOM:
-                        switch (i % 5) {
-                            case 4:
-                                return {color: 'red'};
-                            case 3:
-                                return {color: 'green'};
-                            case 2:
-                                return {color: 'blue'};
-                            case 1:
-                                return {color: 'purple'};
-                            case 0:
-                            default:
-                                return {color: 'yellow'};
-                        }
-                    default:
-                        return 'default' + pseudoRandomString(i, j);
-                }
-            }),
-        });
-    }
-    return rows;
-}
+import {CategoricalColumn, CustomColumn, StatefulDataTable, StringColumn,} from 'baseui/data-table';
+import {ButtonGroup} from "baseui/button-group";
+import {Button, SIZE} from "baseui/button";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faEye, faHandshake, faLink, faPen, faTimes} from '@fortawesome/free-solid-svg-icons'
+import {StyledLink} from "baseui/link";
+import ApiService from "../../services/ApiService";
+import Exception from "../../services/Exception";
+import {StyledSpinnerNext} from "baseui/spinner";
+import style from './entreprise.module.css'
+
 const columns = [
-    CategoricalColumn({
-        title: 'categorical',
-        mapDataToValue: (data) => data[0],
-    }),
-    StringColumn({
-        title: 'string',
-        mapDataToValue: (data) => data[1],
-    }),
-    NumericalColumn({
-        title: 'three',
-        mapDataToValue: (data) => data[2],
-    }),
-    NumericalColumn({
-        title: 'neg std',
-        highlight: n => n < 0,
-        mapDataToValue: (data) => data[3],
-    }),
-    NumericalColumn({
-        title: 'accounting',
-        format: NUMERICAL_FORMATS.ACCOUNTING,
-        mapDataToValue: (data) => data[4],
-    }),
     CustomColumn({
-        title: 'custom color',
-        mapDataToValue: (data) => data[5],
-        renderCell: function Cell(props) {
-            const [css] = useStyletron();
+        title: 'Opération',
+        maxWidth: 100,
+        mapDataToValue: (data) => data[0],
+        renderCell: function Cell() {
             return (
-                <div
-                    className={css({
-                        alignItems: 'center',
-                        display: 'flex',
-                    })}
-                >
-                    <div
-                        className={css({
-                            backgroundColor: props.value.color,
-                            height: '12px',
-                            marginRight: '24px',
-                            width: '12px',
-                        })}
-                    />
-                    <div>{props.value.color}</div>
+                <div>
+                    <ButtonGroup size={SIZE.compact}>
+                        <Button>
+                            <FontAwesomeIcon icon={faEye} color='#1E57B7'/>
+                        </Button>
+                        <Button>
+                            <FontAwesomeIcon icon={faHandshake}/>
+                        </Button>
+                        <Button>
+                            <FontAwesomeIcon icon={faPen}/>
+                        </Button>
+                        <Button>
+                            <FontAwesomeIcon icon={faTimes} color='red'/>
+                        </Button>
+                    </ButtonGroup>
                 </div>
             );
         },
     }),
-    BooleanColumn({
-        title: 'boolean',
-        mapDataToValue: (data) => data[6],
+    StringColumn({
+        title: 'Entreprise',
+        mapDataToValue: (data) => data.entreprise,
+    }),
+    StringColumn({
+        title: 'Responsable',
+        mapDataToValue: (data) => data.responsable,
+    }),
+    StringColumn({
+        title: 'Adresse',
+        style: '',
+        mapDataToValue: (data) => data.adresse,
+        renderCell: function Cell(data) {
+            return (
+                <div>
+                    Z : {data.value}
+                </div>
+            );
+        }
+    }),
+    CustomColumn({
+        title: 'Site',
+        maxWidth: 1,
+        mapDataToValue: (data) => data.site,
+        renderCell: function Cell(data) {
+            return (
+                <div>
+                    <Button size={SIZE.compact} style={{backgroundColor: '#EEEEEE'}}>
+                        <StyledLink href={data.value} target='_blank'>
+                            <FontAwesomeIcon icon={faLink}/>
+                        </StyledLink>
+                    </Button>
+                </div>
+            );
+        },
     }),
     CategoricalColumn({
-        title: 'second category',
-        mapDataToValue: (data) => data[7],
+        title: 'Spécialité',
+        mapDataToValue: (data) => data.specialite,
     }),
 ];
-const rows = makeRowsFromColumns(columns, 50);
+const rows = [
+    {
+        id: 0,
+        data: {
+            operation: '',
+            entreprise: 'ENTREPRISE OUAIS',
+            responsable: 'Marie Curry',
+            adresse: 'Cool adresse',
+            site: 'https://www.example.com',
+            specialite: 'SPECIAL'
+        }
+    },
+    {
+        id: 1,
+        data: {
+            operation: '',
+            entreprise: 'ENTREPRISE YO',
+            responsable: 'Marie Courvite',
+            adresse: 'Pas mal adresse',
+            site: 'https://www.example.com/sub',
+            specialite: 'SPECIAL!'
+        }
+    }
+]
+
 function EntreprisesList() {
     const [css] = useStyletron();
+    const [loading, setLoading] = useState(false);
+    const [entreprises, setEntreprises] = useState([]);
+
+    const getEntreprises = () => {
+        setLoading(true);
+        ApiService.callGet('entreprises')
+            .then(
+                (data) => {
+                    let result = [];
+                    data._embedded.entreprises.map((e) => {
+                        result.push({
+                            id: e.numEntreprise,
+                            data: {
+                                operation: '',
+                                entreprise: e.raisonSociale,
+                                responsable: e.nomResp,
+                                adresse: e.rueEntreprise + ', ' + e.cpEntreprise + ' ' + e.villeEntreprise,
+                                site: e.siteEntreprise,
+                                specialite: 'Spécialité' // FIXME
+                            }
+                        })
+                    })
+                    setEntreprises(result);
+                    console.log(entreprises);
+                    setLoading(false);
+                }
+            ).catch(
+            (error) => {
+                setLoading(false);
+                Exception.throw(error.toString());
+            }
+        )
+    }
+
+    useEffect(() => {
+        getEntreprises();
+    }, []);
+
     return (
-        <div className={css({height: '800px'})}>
-            <StatefulDataTable columns={columns}
-                               rows={rows}
-                               emptyMessage={() => <span>Aucune donnée !</span>}/>
+        <div className={css({height: '600px', width: 'auto'})}>
+            {loading ?
+                <div className={style.centeredDiv}>
+                    <StyledSpinnerNext/>
+                </div>
+                :
+                <StatefulDataTable columns={columns}
+                                   rows={entreprises}
+                                   rowHeight={50}
+                                   emptyMessage={() => <div className={style.centeredDiv}>Aucune donnée</div>}/>
+            }
+
         </div>
     );
 }

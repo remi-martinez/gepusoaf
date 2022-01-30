@@ -13,12 +13,8 @@ import {useEffect, useState} from "react";
 import PageNotFound from "../../pages/404/PageNotFound";
 import config from '../../../config.json'
 import Disconnect from "../../pages/login/Disconnect";
-import Cookies from 'js-cookie';
 import LoginService from "../../services/LoginService";
-
-export const getAccessToken = () => Cookies.get('access_token')
-export const getRefreshToken = () => Cookies.get('refresh_token')
-export const isAuthenticated = () => !!getAccessToken()
+import EntrepriseDetails from "../entreprises/EntrepriseDetails";
 
 function MainLayout() {
     const [user, setUser] = useState({connected: false, login: '', firstname: '', lastname: '', status: ''});
@@ -50,6 +46,7 @@ function MainLayout() {
                     <Routes>
                         <Route index path="/" element={<Home/>}/>
                         <Route path="entreprises" element={<Entreprises/>}/>
+                        <Route path="entreprises/:id" element={<EntrepriseDetails/>}/>
                         <Route path="stagiaire" element={<StudentPage/>}/>
                         <Route path="stagiaire/ajouter" element={<StudentAddPage/>}/>
                         <Route path="inscription" element={<Inscription/>}/>
