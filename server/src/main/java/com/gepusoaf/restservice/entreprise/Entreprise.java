@@ -65,4 +65,5 @@ public class Entreprise {
             joinColumns = @JoinColumn(name = "num_entreprise"),
             inverseJoinColumns = @JoinColumn(name = "num_spec"))
     private Set<Specialite> specialites = new HashSet<>();
+    
 }
