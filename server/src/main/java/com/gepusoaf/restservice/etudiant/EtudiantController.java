@@ -2,6 +2,7 @@ package com.gepusoaf.restservice.etudiant;
 
 import com.gepusoaf.restservice.login.Credentials;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,12 @@ public class EtudiantController {
     @GetMapping("/{id}")
     Optional<Etudiant> findById(@PathVariable int id) {
         return etudiantService.findById(id);
+    }
+
+    @GetMapping("/search")
+    Optional<Etudiant> findByLogin(@Nullable @RequestParam String login) {
+        if (login == null) return Optional.empty();
+        return etudiantService.findByLogin(login);
     }
 
     @PostMapping("/connexion")

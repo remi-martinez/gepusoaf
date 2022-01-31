@@ -25,6 +25,8 @@ public class EtudiantService {
         return etudiantRepository.findById(id);
     }
 
+    public Optional<Etudiant> findByLogin(@NotNull String str) { return Optional.ofNullable(etudiantRepository.findByLogin(str)); }
+
     public boolean connect(@NotNull Credentials credentials) {
         Etudiant etu = etudiantRepository.findByLogin(credentials.getLogin());
         if (etu == null) {

@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Notification} from "baseui/notification";
-import EntreprisesList from "../../components/entreprises/EntreprisesList";
-import {StyledSpinnerNext} from "baseui/spinner";
+import EntreprisesList from "./EntreprisesList";
+import {Button} from "baseui/button";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from "react-router-dom";
 
 function Entreprises() {
-    const [loading, setLoading] = useState(true);
-    setTimeout(() => setLoading(false), 200);
-    return(
+    const navigate = useNavigate();
+    return (
         <>
             <h1>Entreprises</h1>
             <Notification
@@ -15,7 +17,10 @@ function Entreprises() {
                 }}>
                 <p>Retrouvez ici toutes les entreprises !</p>
             </Notification>
-            { loading ? <StyledSpinnerNext/> : <EntreprisesList/>}
+            <Button onClick={() => navigate('/entreprises/new')}>
+                <FontAwesomeIcon icon={faPlus}/>&nbsp;Nouvelle entreprise
+            </Button>
+            <EntreprisesList/>
         </>
     );
 }

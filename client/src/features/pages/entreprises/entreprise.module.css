@@ -1,0 +1,29 @@
+.centeredDiv {
+    display: flex;
+    padding: 5%;
+    justify-content: center;
+}
+
+.cards{
+    margin: 10px !important;
+}
+
+.grid {
+    padding: 0 !important;
+    border: solid 1px red !important;
+}
+
+.errorDiv {
+    text-align: center;
+    padding: 5%;
+}
+
+.ulStyle {
+    margin: 0;
+    padding: 0;
+}
+
+.saveBtn, .editBtn {
+    float: right;
+    margin-right: 20px;
+}

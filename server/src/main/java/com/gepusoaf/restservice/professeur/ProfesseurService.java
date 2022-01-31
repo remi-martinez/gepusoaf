@@ -25,6 +25,10 @@ public class ProfesseurService {
         return professeurRepository.findById(id);
     }
 
+    public Optional<Professeur> findByLogin(@NotNull String str) {
+        return Optional.ofNullable(professeurRepository.findByLogin(str));
+    }
+
     public boolean connect(@NotNull Credentials credentials) {
         Professeur prof = professeurRepository.findByLogin(credentials.getLogin());
         if (prof == null) {
