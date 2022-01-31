@@ -27,19 +27,4 @@ public class SpecialiteController {
     Optional<Specialite> findById(@PathVariable int id) {
         return specialiteService.findById(id);
     }
-
-    @PostMapping("/")
-    Specialite createSpecialite(@Validated @RequestBody Specialite specialite) {
-        return specialiteService.createSpecialite(specialite);
-    }
-
-    @PutMapping("/{id}")
-    Specialite updateSpecialite(@PathVariable int id, @Validated @RequestBody Specialite specialiteDetails) {
-        return specialiteService.updateSpecialite(id, specialiteDetails);
-    }
-
-    @DeleteMapping("/{id}")
-    int deleteSpecialite(@PathVariable int id) {
-        return specialiteService.deleteSpecialite(id);
-    }
 }

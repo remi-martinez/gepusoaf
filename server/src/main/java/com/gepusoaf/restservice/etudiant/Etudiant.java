@@ -2,6 +2,7 @@ package com.gepusoaf.restservice.etudiant;
 
 import com.gepusoaf.restservice.classe.Classe;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDate;

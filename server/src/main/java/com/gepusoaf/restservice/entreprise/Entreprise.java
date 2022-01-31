@@ -1,9 +1,12 @@
 package com.gepusoaf.restservice.entreprise;
 
+import com.gepusoaf.restservice.specialite.Specialite;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -57,4 +60,9 @@ public class Entreprise {
     @Column(name = "en_activite", nullable = false)
     private Boolean enActivite = false;
 
+    @ManyToMany
+    @JoinTable(name = "spec_entreprise",
+            joinColumns = @JoinColumn(name = "num_entreprise"),
+            inverseJoinColumns = @JoinColumn(name = "num_spec"))
+    private Set<Specialite> specialites = new HashSet<>();
 }
