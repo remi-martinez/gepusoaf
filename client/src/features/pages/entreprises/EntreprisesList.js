@@ -97,7 +97,7 @@ function EntreprisesList() {
 
     const getEntreprises = () => {
         setLoading(true);
-        ApiService.callGet('entreprises')
+        ApiService.callGet('entreprises?page=0&size=50')
             .then(
                 (data) => {
                     let result = [];

@@ -19,7 +19,7 @@ function StudentPage() {
     const navigate = useNavigate();
     return (
         <>
-            <h1>Students</h1>
+            <h1>Stagiaires</h1>
             <Button onClick={() => navigate('/stagiaire/ajouter')}>
                 <FontAwesomeIcon icon={faPlus}/>&nbsp;Ajouter un étudiant
             </Button>

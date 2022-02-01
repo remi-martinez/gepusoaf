@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {useStyletron} from 'baseui';
-import {CategoricalColumn, CustomColumn, StatefulDataTable, StringColumn,} from 'baseui/data-table';
+import {CustomColumn, StatefulDataTable, StringColumn,} from 'baseui/data-table';
 import {ButtonGroup} from "baseui/button-group";
 import {Button, SIZE} from "baseui/button";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faEye, faHandshake, faLink, faPen, faTimes} from '@fortawesome/free-solid-svg-icons'
-import {StyledLink} from "baseui/link";
+import {faEye, faPen, faTimes} from '@fortawesome/free-solid-svg-icons'
 import ApiService from "../../services/ApiService";
+import apiService from "../../services/ApiService";
 import Exception from "../../services/Exception";
 import {StyledSpinnerNext} from "baseui/spinner";
 import style from '../entreprises/entreprise.module.css'
 import {useNavigate} from "react-router-dom";
-import {Delete} from "baseui/icon";
-import apiService from "../../services/ApiService";
 
 function StudentList() {
     const [css] = useStyletron();
@@ -57,7 +55,7 @@ function StudentList() {
 
     const getStudent = () => {
         setLoading(true);
-        ApiService.callGet('etudiants')
+        ApiService.callGet('etudiants?page=0&size=50')
             .then(
                 (data) => {
                     let result = [];
@@ -85,14 +83,17 @@ function StudentList() {
     useEffect(() => {
         getStudent();
     }, []);
+
     function removeRows(ids) {
         const nextRows = student.filter(row => !ids.includes(row.id));
         setStudent(nextRows);
     }
+
     function removeRow(id) {
         removeRows([id]);
-        apiService.callDelete('etudiants/'+id,)
+        apiService.callDelete('etudiants/' + id,)
     }
+
     const rowActions = [
         {
             label: 'Delete',
