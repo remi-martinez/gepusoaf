@@ -2,7 +2,10 @@ import React from 'react';
 import {Input} from "baseui/input";
 import {FlexGrid, FlexGridItem} from "baseui/flex-grid";
 import {Select} from "baseui/select";
-import {Button} from "baseui/button"; // add this package to your repo with `$ yarn add email-validator`
+import {Button} from "baseui/button";
+import ApiService from "../../services/ApiService";
+import apiService from "../../services/ApiService";
+import {useNavigate} from "react-router-dom"; // add this package to your repo with `$ yarn add email-validator`
 
 
 function StudentAddPage() {
@@ -19,6 +22,34 @@ function StudentAddPage() {
         alignItems: 'center',
         justifyContent: 'center',
     };
+    const navigate = useNavigate();
+    const onClick = function (){
+        apiService.callPost('etudiants', {
+            'nomEtudiant': valueNom,
+            'prenomEtudiant': valuePrenom,
+            'anneeObtention': valueDateBTS,
+            'login': valueNomUtilisateur,
+            'mdp': valueMotDePasse,
+            'enActivite': true,
+            'numClasse': valueClasse
+        }).then(() => {
+            navigate('/stagiaire');
+        })
+    }
+
+    var classes = []
+    ApiService.callGet('classes').then(
+        (data) => {
+
+            data._embedded.classes.map((c) => {
+                    return classes.push({
+                        id: c.numClasse,
+                        label: c.nomClasse
+                    })
+                }
+            )
+        }
+    )
 
     return (
         <>
@@ -29,7 +60,7 @@ function StudentAddPage() {
                     flexGridRowGap="scale800"
                 >
                     <FlexGridItem>
-                        <label htmlFor="nom">Nom 📍</label>
+                        <label htmlFor="nom">Nom *</label>
                         <Input
                             {...itemProps}
                             name="nom"
@@ -41,7 +72,7 @@ function StudentAddPage() {
                         />
                     </FlexGridItem>
                     <FlexGridItem>
-                        <label htmlFor="prenom">Prénom 📍</label>
+                        <label htmlFor="prenom">Prénom *</label>
                         <Input
                             {...itemProps}
                             name="prenom"
@@ -53,7 +84,7 @@ function StudentAddPage() {
                         />
                     </FlexGridItem>
                     <FlexGridItem>
-                        <label htmlFor="nomUtilisateur">Nom d'utilisateur 📍</label>
+                        <label htmlFor="nomUtilisateur">Nom d'utilisateur *</label>
                         <Input
                             {...itemProps}
                             name="nomUtilisateur"
@@ -61,11 +92,12 @@ function StudentAddPage() {
                             onChange={e => setValueNomUtilisateur(e.target.value)}
                             type="text"
                             placeholder="(8 caractères)"
+                            maxLength={8}
                             clearOnEscape
                         />
                     </FlexGridItem>
                     <FlexGridItem >
-                        <label htmlFor="motDePasse">Mot de passe 📍</label>
+                        <label htmlFor="motDePasse">Mot de passe *</label>
                         <Input
                             {...itemProps}
                             name="motDePasse"
@@ -73,6 +105,7 @@ function StudentAddPage() {
                             onChange={e => setValueMotDePasse(e.target.value)}
                             type="password"
                             placeholder="(Entre 8 et 30 caractères)"
+                            maxLength={30}
                             clearOnEscape
                         />
                     </FlexGridItem>
@@ -89,21 +122,22 @@ function StudentAddPage() {
                         />
                     </FlexGridItem>
                     <FlexGridItem>
-                        <label htmlFor="classe">Classe 📍</label>
+                        <label htmlFor="classe">Classe *</label>
                         <Select
                             {...itemProps}
                             name="classe"
                             value={valueClasse}
-                            onChange={e => setValueClasse(e.target.value)}
                             clearOnEscape
                             required
+                            options={classes}
+                            onChange={params => setValueClasse(params.value)}
                         />
                     </FlexGridItem>
                 </FlexGrid>
 
             </form>
-            <p>Les champs avec le symbole 📍 sont obligatoires</p>
-            <Button style={{float: "right", marginRight: "10"}} type="submit">Ajouter</Button>
+            <p>Les champs avec le symbole * sont obligatoires</p>
+            <Button style={{float: "right", marginRight: "10"}} type="submit" onClick={() => onClick()}>Ajouter</Button>
         </>
     );
 

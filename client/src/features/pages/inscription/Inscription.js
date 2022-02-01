@@ -15,6 +15,7 @@ import Exception from "../../services/Exception";
 function Inscription() {
 
     const [professeurs, setProfesseurs] = useState([]);
+    const [etudiants, setEtudiants] = useState([]);
     const [formValues, setFormValues] = useState({
         debutStage: new Date(),
         finStage: new Date(),
@@ -22,7 +23,7 @@ function Inscription() {
         description: "",
         observations: "",
         entreprise: {label: '', id: ''},
-        etudiant: "",
+        etudiant: {label: '', id: ''},
         professeur: {label: '', id: ''},
 
     });
@@ -47,8 +48,29 @@ function Inscription() {
         return profs;
     }
 
+    const getEtudiants = () => {
+        ApiService.callGet('etudiants')
+            .then(
+                (data) => {
+                    setEtudiants(data._embedded.etudiants)
+                },
+                (error) => {
+                    Exception.throw(error.toString())
+                }
+            )
+    }
+
+    const generateEtudiantsList = () => {
+        let etu = [];
+        etudiants.map((e) => {
+            return etu.push({label: `${e.nomEtudiant} ${e.prenomEtudiant}`, id: e.numEtudiant})
+        });
+        return etu;
+    }
+
     useEffect(() => {
         getProfesseurs();
+        getEtudiants();
     }, []);
 
     return (
@@ -158,14 +180,7 @@ function Inscription() {
                             <div>
                                 <FormControl label="Entreprise">
                                     <Select
-                                        options={[
-                                            {label: "AliceBlue", id: "#F0F8FF"},
-                                            {label: "AntiqueWhite", id: "#FAEBD7"},
-                                            {label: "Aqua", id: "#00FFFF"},
-                                            {label: "Aquamarine", id: "#7FFFD4"},
-                                            {label: "Azure", id: "#F0FFFF"},
-                                            {label: "Beige", id: "#F5F5DC"}
-                                        ]}
+                                        options={[                                        ]}
                                         value={formValues.entreprise}
                                         placeholder="Sélectionner une entreprise"
                                         onChange={params => setFormValues({...formValues, entreprise: params.option})}
@@ -175,10 +190,10 @@ function Inscription() {
                             <div>
                                 <FormControl label="Étudiant">
                                     <Select
-                                        //options= getLesPetitsPd
-                                        value={formValues.etudiants}
+                                        options={generateEtudiantsList()}
+                                        value={formValues.etudiant}
                                         placeholder="Sélectionner un étudiant"
-                                        onChange={params => setFormValues(params.value)}
+                                        onChange={params => setFormValues({...formValues, etudiant: params.option})}
                                     />
                                 </FormControl>
                             </div>

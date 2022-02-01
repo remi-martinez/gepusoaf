@@ -27,13 +27,14 @@ class ApiService extends React.Component {
         }).then(data => data.json());
     }
 
-    static callStudentConnection(body) {
-
+    static callDelete(route, body) {
+        return fetch(`${apiUrl}/${route}`, {
+            method: 'DELETE',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        })
     }
 
-    static callTeacherConnection(body) {
-
-    }
 
 
 }

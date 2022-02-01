@@ -11,6 +11,9 @@ import Exception from "../../services/Exception";
 import {StyledSpinnerNext} from "baseui/spinner";
 import style from './entreprise.module.css'
 import {useNavigate} from "react-router-dom";
+import LoginService from "../../services/LoginService";
+import loginService from "../../services/LoginService";
+import apiService from "../../services/ApiService";
 
 function EntreprisesList() {
     const [css] = useStyletron();
@@ -25,6 +28,15 @@ function EntreprisesList() {
             maxWidth: 100,
             mapDataToValue: (data) => data.numEntreprise,
             renderCell: function Cell(data) {
+                var buttonProf;
+                if(loginService.getUserRolesCookie() !== "teacher"){
+                     buttonProf =
+                        <Button onClick={() => navigate('/entreprises/' + data.value + '/edit')}>
+                            <FontAwesomeIcon icon={faPen}/>
+                        </Button>
+                }else{
+                    buttonProf = <></>
+                }
                 return (
                     <div>
                         <ButtonGroup size={SIZE.compact}>
@@ -34,13 +46,9 @@ function EntreprisesList() {
                             <Button>
                                 <FontAwesomeIcon icon={faHandshake}/>
                             </Button>
-                            <Button>
-                                <FontAwesomeIcon icon={faPen}/>
-                            </Button>
-                            <Button>
-                                <FontAwesomeIcon icon={faTimes} color='red'/>
-                            </Button>
+                            {buttonProf}
                         </ButtonGroup>
+
                     </div>
                 );
             },
@@ -121,7 +129,27 @@ function EntreprisesList() {
         getEntreprises();
     }, []);
 
-    return (
+    function removeRows(ids) {
+        const nextRows = entreprises.filter(row => !ids.includes(row.id));
+        setEntreprises(nextRows);
+    }
+    function removeRow(id) {
+        removeRows([id]);
+        apiService.callDelete('entreprises/'+id)
+    }
+    var rowActions;
+    if(loginService.getUserRolesCookie() !== "teacher"){
+        rowActions = [{
+            label: 'Delete',
+            onClick: ({row}) => removeRow(row.id),
+            renderIcon: ({size}) => <FontAwesomeIcon icon={faTimes} color="red"/>,
+        }]
+    }else{
+        rowActions=[];
+    }
+
+
+        return (
         <div className={css({height: '600px', width: 'auto'})}>
             {loading ?
                 <div className={style.centeredDiv}>
@@ -131,6 +159,7 @@ function EntreprisesList() {
                 <StatefulDataTable columns={columns}
                                    rows={entreprises}
                                    rowHeight={50}
+                                   rowActions={rowActions}
                                    emptyMessage={() => <div className={style.centeredDiv}>Aucune donnée</div>}/>
             }
 
