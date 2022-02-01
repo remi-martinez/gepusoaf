@@ -1,11 +1,14 @@
 package com.gepusoaf.restservice.etudiant;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gepusoaf.restservice.classe.Classe;
+import com.gepusoaf.restservice.stage.Stage;
 import lombok.*;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -42,4 +45,7 @@ public class Etudiant {
     @Column(name = "en_activite", nullable = false)
     private Boolean enActivite = false;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "numEtudiant")
+    private List<Stage> stages;
 }

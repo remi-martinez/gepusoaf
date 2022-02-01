@@ -22,7 +22,7 @@ function EntrepriseForm(props) {
         ApiService.callGet('specialites')
             .then(result => {
                 let specs = [];
-                result._embedded.specialites.map(s => {
+                result.map(s => {
                     specs.push({id: s.numSpec, libelle: s.libelle});
                 })
                 setAvailableSpecs(specs);
@@ -53,7 +53,6 @@ function EntrepriseForm(props) {
             "enActivite": true,
             "specialites": [dataOut?.specialites.map(s => { return 'specialites/' + s.numSpec })]
         }
-        console.log(body);
 
         if (formType === 'edition') {
             // TODO : édition
@@ -224,7 +223,7 @@ function EntrepriseForm(props) {
                                             options={availableSpecs ? availableSpecs : []}
                                             valueKey="id"
                                             labelKey="libelle"
-                                            placeholder="Choose a color"
+                                            placeholder="Choisissez une spécialité"
                                             maxDropdownHeight="300px"
                                             multi
                                             onChange={e => handleMultiSelectChange(e)}

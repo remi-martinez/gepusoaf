@@ -43,13 +43,13 @@ function StudentList() {
             mapDataToValue: (data) => data.nomEtudiant,
         }),
         StringColumn({
-            title: 'Entreprise',
-            mapDataToValue: (data) => data.entreprise
+            title: 'Entreprise(s)',
+            mapDataToValue: (data) => data.entreprises
         }),
         StringColumn({
-            title: 'Professeur',
+            title: 'Professeur(s)',
             style: '',
-            mapDataToValue: (data) => data.numClasse,
+            mapDataToValue: (data) => data.profs,
         }),
     ];
 
@@ -59,14 +59,20 @@ function StudentList() {
             .then(
                 (data) => {
                     let result = [];
-                    data._embedded.etudiants.map((s) => {
+                    data.map((s) => {
+                        let entreprises = [];
+                        let profs = [];
+                        for (const stage of s.stages){
+                            profs.push(stage.numProf.nomProf +" " + stage.numProf.prenomProf)
+                            entreprises.push(stage.numEntreprise.raisonSociale)
+                        }
                         return result.push({
                             id: s.numEtudiant,
                             data: {
                                 numEtudiant: s.numEtudiant,
                                 nomEtudiant: s.nomEtudiant + " " + s.prenomEtudiant,
-                                entreprise: s.entreprise,
-                                classe: s.numClasse
+                                entreprises: entreprises.join(" / "),
+                                profs: profs.join(" / "),
                             }
                         })
                     })
@@ -83,7 +89,6 @@ function StudentList() {
 
     const getStages = () => {
         setLoading(true);
-        // TODO : récup les stages pour afficher les champs prof & entreprise
     }
 
     useEffect(() => {

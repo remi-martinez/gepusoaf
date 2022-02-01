@@ -11,11 +11,15 @@ import {Select} from "baseui/select";
 import ApiService from "../../services/ApiService";
 import ToasterService from "../../services/ToasterService";
 import Exception from "../../services/Exception";
+import {StyledSpinnerNext} from "baseui/spinner";
 
 function Inscription() {
 
     const [professeurs, setProfesseurs] = useState([]);
     const [etudiants, setEtudiants] = useState([]);
+    const [entreprises, setEntreprises] = useState([]);
+
+
     const [formValues, setFormValues] = useState({
         debutStage: new Date(),
         finStage: new Date(),
@@ -28,11 +32,19 @@ function Inscription() {
 
     });
 
+
+    const itemProps = {
+        backgroundColor: 'mono300',
+        height: 'scale1000',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    };
     const getProfesseurs = () => {
         ApiService.callGet('professeurs')
             .then(
                 (data) => {
-                    setProfesseurs(data._embedded.professeurs)
+                    setProfesseurs(data)
                 },
                 (error) => {
                     Exception.throw(error.toString())
@@ -48,11 +60,30 @@ function Inscription() {
         return profs;
     }
 
+    const getEntreprises = () => {
+        ApiService.callGet('entreprises')
+            .then(
+                (data) => {
+                    setEntreprises(data)
+                },
+                (error) => {
+                    Exception.throw(error.toString())
+                }
+            )
+    }
+    const generateEntreprisesList = () => {
+        let entr = [];
+        entreprises.map((e) => {
+            return entr.push({label: e.raisonSociale, id: e.numEntreprise})
+        })
+        return entr;
+    }
+
     const getEtudiants = () => {
         ApiService.callGet('etudiants')
             .then(
                 (data) => {
-                    setEtudiants(data._embedded.etudiants)
+                    setEtudiants(data)
                 },
                 (error) => {
                     Exception.throw(error.toString())
@@ -71,6 +102,7 @@ function Inscription() {
     useEffect(() => {
         getProfesseurs();
         getEtudiants();
+        getEntreprises();
     }, []);
 
     return (
@@ -180,20 +212,18 @@ function Inscription() {
                             <div>
                                 <FormControl label="Entreprise">
                                     <Select
-                                        options={[                                        ]}
+                                        options={generateEntreprisesList()}
                                         value={formValues.entreprise}
-                                        placeholder="Sélectionner une entreprise"
-                                        onChange={params => setFormValues({...formValues, entreprise: params.option})}
+                                        onChange={params => setFormValues({...formValues, entreprise: params.value})}
                                     />
                                 </FormControl>
                             </div>
                             <div>
-                                <FormControl label="Étudiant">
+                                <FormControl label="Etudiant">
                                     <Select
                                         options={generateEtudiantsList()}
                                         value={formValues.etudiant}
-                                        placeholder="Sélectionner un étudiant"
-                                        onChange={params => setFormValues({...formValues, etudiant: params.option})}
+                                        onChange={params => setFormValues({...formValues, etudiant: params.value})}
                                     />
                                 </FormControl>
                             </div>
@@ -202,8 +232,7 @@ function Inscription() {
                                     <Select
                                         options={generateProfList()}
                                         value={formValues.professeur}
-                                        placeholder="Sélectionner un professeur"
-                                        onChange={params => setFormValues({...formValues, professeur: params.option})}
+                                        onChange={params => setFormValues({...formValues, professeur: params.value})}
                                     />
                                 </FormControl>
                             </div>

@@ -3,11 +3,9 @@
 --
 
 -- CAS 1 : BASE EN LOCAL (DECOMMENTER)
--- CREATE DATABASE bdd_geststages;
--- USE bdd_geststages ;
---
--- CREATE USER 'usergs'@'%' IDENTIFIED BY 'mdpGS';
--- GRANT ALL PRIVILEGES ON bdd_geststages.* TO 'usergs'@'%';
+CREATE DATABASE bdd_geststages;
+USE bdd_geststages ;
+
 
 -- CAS 2 : BASE HEBERGEE (DECOMMENTER)
 -- USE DABASENAME_HERE;
@@ -109,7 +107,6 @@ CREATE TABLE `professeur`
 -- Structure de la table `prof_classe`
 --
 
-DROP TABLE `prof_classe`;
 CREATE TABLE `prof_classe`
 (
     `num_prof`           int(32) NOT NULL,
@@ -501,7 +498,3 @@ VALUES (1, 'Découverte de l''entreprise', 1),
        (5, 'Analyse et mise à jour de la documentation technique de l''application "appProj"', 3),
        (6, 'Découverte de l''entreprise', 5),
        (7, 'Prise en main de l''API "comJSON"', 5);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

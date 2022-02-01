@@ -41,7 +41,7 @@ function StudentAddPage() {
     ApiService.callGet('classes').then(
         (data) => {
 
-            data._embedded.classes.map((c) => {
+            data.map((c) => {
                     return classes.push({
                         id: c.numClasse,
                         label: c.nomClasse

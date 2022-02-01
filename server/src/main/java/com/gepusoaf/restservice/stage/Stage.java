@@ -1,5 +1,6 @@
 package com.gepusoaf.restservice.stage;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.gepusoaf.restservice.entreprise.Entreprise;
 import com.gepusoaf.restservice.etudiant.Etudiant;
 import com.gepusoaf.restservice.professeur.Professeur;
@@ -40,6 +41,7 @@ public class Stage {
     @Column(name = "observation_stage")
     private String observationStage;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn(name = "num_etudiant", nullable = false)
     private Etudiant numEtudiant;

@@ -18,7 +18,7 @@ public class SpecialiteController {
         this.specialiteService = specialiteService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     List<Specialite> findAll() {
         return specialiteService.findAll();
     }

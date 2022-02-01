@@ -90,8 +90,8 @@ function EntreprisesList() {
             },
         }),
         CategoricalColumn({
-            title: 'Spécialité',
-            mapDataToValue: (data) => data.specialite,
+            title: 'Spécialités',
+            mapDataToValue: (data) => data.specialites,
         }),
     ];
 
@@ -101,7 +101,11 @@ function EntreprisesList() {
             .then(
                 (data) => {
                     let result = [];
-                    data._embedded.entreprises.map((e) => {
+                    data.map((e) => {
+                        let spec = [];
+                        for (const specialite of e.specialites){
+                            spec.push(specialite.libelle)
+                        }
                         return result.push({
                             id: e.numEntreprise,
                             data: {
@@ -110,7 +114,7 @@ function EntreprisesList() {
                                 responsable: e.nomResp,
                                 adresse: e.rueEntreprise + ', ' + e.cpEntreprise + ' ' + e.villeEntreprise,
                                 site: e.siteEntreprise,
-                                specialite: 'Spécialité' // FIXME
+                                specialites: spec.join(', ')
                             }
                         })
                     })
@@ -147,7 +151,6 @@ function EntreprisesList() {
     }else{
         rowActions=[];
     }
-
 
         return (
         <div className={css({height: '600px', width: 'auto'})}>
