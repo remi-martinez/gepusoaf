@@ -12,7 +12,7 @@ function NavigationBar({user}) {
     const [mainItems, setMainItems] = useState([
         {label: "Accueil", pathname: "/"},
         {label: "Entreprises", pathname: "/entreprises"},
-        {label: "Stagiaire", pathname: "/stagiaire"},
+        {label: "Stagiaire", pathname: "/stagiaires"},
         {label: "Inscription", pathname: "/inscription"}
     ]);
 

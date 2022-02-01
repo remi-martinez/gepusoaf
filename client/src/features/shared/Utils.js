@@ -50,6 +50,16 @@ class Utils extends React.Component {
         );
     }
 
+    static skeletonElementsEtudiant() {
+        return (
+            <Card title="Informations" className={style.cards}>
+                <StyledBody>
+                    {Utils.skeleton(5)}
+                </StyledBody>
+            </Card>
+        );
+    }
+
     static errorDiv() {
         return (
             <div className={style.errorDiv}>

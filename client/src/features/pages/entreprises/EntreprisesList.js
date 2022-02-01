@@ -28,7 +28,7 @@ function EntreprisesList() {
             maxWidth: 100,
             mapDataToValue: (data) => data.numEntreprise,
             renderCell: function Cell(data) {
-                var buttonProf;
+                let buttonProf;
                 if(loginService.getUserRolesCookie() !== "teacher"){
                      buttonProf =
                         <Button onClick={() => navigate('/entreprises/' + data.value + '/edit')}>

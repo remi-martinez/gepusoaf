@@ -22,12 +22,12 @@ function StudentList() {
         CustomColumn({
             title: 'Opération',
             maxWidth: 100,
-            mapDataToValue: (data) => data.numEntreprise,
+            mapDataToValue: (data) => data.numEtudiant,
             renderCell: function Cell(data) {
                 return (
                     <div>
                         <ButtonGroup size={SIZE.compact}>
-                            <Button onClick={() => navigate('/student/' + data.id)}>
+                            <Button onClick={() => navigate('/stagiaires/' + data.value)}>
                                 <FontAwesomeIcon icon={faEye} color='#1E57B7'/>
                             </Button>
                             <Button>
@@ -44,7 +44,7 @@ function StudentList() {
         }),
         StringColumn({
             title: 'Entreprise',
-            mapDataToValue: (data) => data.entreprise,
+            mapDataToValue: (data) => data.entreprise
         }),
         StringColumn({
             title: 'Professeur',
@@ -63,6 +63,7 @@ function StudentList() {
                         return result.push({
                             id: s.numEtudiant,
                             data: {
+                                numEtudiant: s.numEtudiant,
                                 nomEtudiant: s.nomEtudiant + " " + s.prenomEtudiant,
                                 entreprise: s.entreprise,
                                 classe: s.numClasse
@@ -78,6 +79,11 @@ function StudentList() {
                 Exception.throw(error.toString());
             }
         )
+    }
+
+    const getStages = () => {
+        setLoading(true);
+        // TODO : récup les stages pour afficher les champs prof & entreprise
     }
 
     useEffect(() => {

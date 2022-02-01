@@ -17,6 +17,7 @@ import LoginService from "../../services/LoginService";
 import EntrepriseDetails from "../../pages/entreprises/EntrepriseDetails";
 import EntrepriseCreation from "../../pages/entreprises/EntrepriseCreation";
 import EntrepriseEdition from "../../pages/entreprises/EntrepriseEdition";
+import StudentDetails from "../../pages/student/StudentDetails";
 
 function MainLayout() {
     const [user, setUser] = useState({connected: false, login: '', firstname: '', lastname: '', status: ''});
@@ -51,8 +52,9 @@ function MainLayout() {
                         <Route path="entreprises/:id" element={<EntrepriseDetails/>}/>
                         <Route path="entreprises/:id/edit" element={<EntrepriseEdition/>}/>
                         <Route path="entreprises/new" element={<EntrepriseCreation/>}/>
-                        <Route path="stagiaire" element={<StudentPage/>}/>
-                        <Route path="stagiaire/ajouter" element={<StudentAddPage/>}/>
+                        <Route path="stagiaires" element={<StudentPage/>}/>
+                        <Route path="stagiaires/:id" element={<StudentDetails/>}/>
+                        <Route path="stagiaires/ajouter" element={<StudentAddPage/>}/>
                         <Route path="inscription" element={<Inscription/>}/>
                         <Route path="aide" element={<Help/>}/>
                         <Route path="disconnect" element={<Disconnect user={user} onUserChange={(user) => handleUserChange(user)}/>}/>
