@@ -23,24 +23,4 @@ public class SpecialiteService {
         return specialiteRepository.findById(id);
     }
 
-    public Specialite createSpecialite(@NotNull Specialite specialite) {
-        return specialiteRepository.save(specialite);
-    }
-
-    public int deleteSpecialite(int id) {
-        specialiteRepository.deleteById(id);
-        return id;
-    }
-
-    public Specialite updateSpecialite(int id, Specialite sInput) {
-        specialiteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Spécialité id %d introuvable.", id)));
-
-        Specialite s = Specialite.builder()
-                .numSpec(id)
-                .libelle(sInput.getLibelle())
-                .build();
-        
-        return specialiteRepository.save(s);
-    }
 }

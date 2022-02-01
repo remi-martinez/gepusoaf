@@ -51,6 +51,7 @@ public class EntrepriseService {
                 .siteEntreprise(eInput.getSiteEntreprise())
                 .niveau(eInput.getNiveau())
                 .enActivite(eInput.getEnActivite())
+                .specialites(eInput.getSpecialites())
                 .build();
 
         return entrepriseRepository.save(e);
