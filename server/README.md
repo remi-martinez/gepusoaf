@@ -13,7 +13,7 @@ Pour un meilleur fonctionnement, suivre les étapes suivant dans l'ordre ❗
 2. Après avoir cloné ce repository, ouvrir le dossier `/server` (dans la racine de ce projet).
 3. Les dépendances et les fichiers vont s'indexer tout seul par IntelliJ. 
 4. Au cas où, se rendre dans `server\pom.xml` et faire un `Ctrl+Maj+O` pour mettre à jour les dépendances.
-5. Pendant l'indexage des dépendances et des fichiers, on peut s'occuper de la base de données !
+5. Pendant l'indexation des dépendances et des fichiers, on peut s'occuper de la base de données !
 
 ### Base de données 💾
 
