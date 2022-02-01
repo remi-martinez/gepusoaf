@@ -7,13 +7,13 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEye, faHandshake, faLink, faPen, faTimes} from '@fortawesome/free-solid-svg-icons'
 import {StyledLink} from "baseui/link";
 import ApiService from "../../services/ApiService";
+import apiService from "../../services/ApiService";
 import Exception from "../../services/Exception";
 import {StyledSpinnerNext} from "baseui/spinner";
 import style from './entreprise.module.css'
 import {useNavigate} from "react-router-dom";
-import LoginService from "../../services/LoginService";
 import loginService from "../../services/LoginService";
-import apiService from "../../services/ApiService";
+import ToasterService from "../../services/ToasterService";
 
 function EntreprisesList() {
     const [css] = useStyletron();
@@ -29,12 +29,12 @@ function EntreprisesList() {
             mapDataToValue: (data) => data.numEntreprise,
             renderCell: function Cell(data) {
                 let buttonProf;
-                if(loginService.getUserRolesCookie() !== "teacher"){
-                     buttonProf =
+                if (loginService.getUserRolesCookie() !== "teacher") {
+                    buttonProf =
                         <Button onClick={() => navigate('/entreprises/' + data.value + '/edit')}>
                             <FontAwesomeIcon icon={faPen}/>
                         </Button>
-                }else{
+                } else {
                     buttonProf = <></>
                 }
                 return (
@@ -43,7 +43,7 @@ function EntreprisesList() {
                             <Button onClick={() => navigate('/entreprises/' + data.value)}>
                                 <FontAwesomeIcon icon={faEye} color='#1E57B7'/>
                             </Button>
-                            <Button>
+                            <Button onClick={() => navigate('/inscription')}>  {/*TODO : si y'a le temps, passer les données dans inscription (entreprise)*/}
                                 <FontAwesomeIcon icon={faHandshake}/>
                             </Button>
                             {buttonProf}
@@ -63,15 +63,7 @@ function EntreprisesList() {
         }),
         StringColumn({
             title: 'Adresse',
-            style: '',
-            mapDataToValue: (data) => data.adresse,
-            renderCell: function Cell(data) {
-                return (
-                    <div>
-                        Z : {data.value}
-                    </div>
-                );
-            }
+            mapDataToValue: (data) => data.adresse
         }),
         CustomColumn({
             title: 'Site',
@@ -103,7 +95,7 @@ function EntreprisesList() {
                     let result = [];
                     data.map((e) => {
                         let spec = [];
-                        for (const specialite of e.specialites){
+                        for (const specialite of e.specialites) {
                             spec.push(specialite.libelle)
                         }
                         return result.push({
@@ -137,22 +129,26 @@ function EntreprisesList() {
         const nextRows = entreprises.filter(row => !ids.includes(row.id));
         setEntreprises(nextRows);
     }
+
     function removeRow(id) {
         removeRows([id]);
-        apiService.callDelete('entreprises/'+id)
+        apiService.callDelete('entreprises/' + id)
+            .then(() => ToasterService.info('Entreprise supprimée avec succès'))
+            .catch((e) => Exception.throw(e.toString()))
     }
+
     var rowActions;
-    if(loginService.getUserRolesCookie() !== "teacher"){
+    if (loginService.getUserRolesCookie() !== "teacher") {
         rowActions = [{
             label: 'Delete',
             onClick: ({row}) => removeRow(row.id),
             renderIcon: ({size}) => <FontAwesomeIcon icon={faTimes} color="red"/>,
         }]
-    }else{
-        rowActions=[];
+    } else {
+        rowActions = [];
     }
 
-        return (
+    return (
         <div className={css({height: '600px', width: 'auto'})}>
             {loading ?
                 <div className={style.centeredDiv}>

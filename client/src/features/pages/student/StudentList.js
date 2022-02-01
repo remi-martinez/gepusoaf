@@ -30,7 +30,7 @@ function StudentList() {
                             <Button onClick={() => navigate('/stagiaires/' + data.value)}>
                                 <FontAwesomeIcon icon={faEye} color='#1E57B7'/>
                             </Button>
-                            <Button>
+                            <Button onClick={() => navigate('/stagiaires/' + data.value + '/edit')}>
                                 <FontAwesomeIcon icon={faPen}/>
                             </Button>
                         </ButtonGroup>

@@ -20,7 +20,7 @@ class ToasterService extends React.Component {
     static info(msg, closeDelay) {
         if (!closeDelay) closeDelay = 3000;
         if (!msg) return;
-        return toaster.positive(
+        return toaster.info(
             <>
                 <strong>Information</strong><br/>
                 {msg}

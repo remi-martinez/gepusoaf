@@ -10,12 +10,16 @@ import {Select} from "baseui/select";
 import ApiService from "../../services/ApiService";
 import Exception from "../../services/Exception";
 import {StyledSpinnerNext} from "baseui/spinner";
+import {useNavigate} from "react-router-dom";
+import ToasterService from "../../services/ToasterService";
 
 function EntrepriseForm(props) {
     const [dataIn, setDataIn] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [loadingSpecs, setLoadingSpecs] = useState(true);
     const [availableSpecs, setAvailableSpecs] = useState([]);
     const formType = props?.formType;
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoadingSpecs(true);
@@ -23,7 +27,7 @@ function EntrepriseForm(props) {
             .then(result => {
                 let specs = [];
                 result.map(s => {
-                    specs.push({id: s.numSpec, libelle: s.libelle});
+                    specs.push({numSpec: s.numSpec, libelle: s.libelle});
                 })
                 setAvailableSpecs(specs);
                 setLoadingSpecs(false);
@@ -51,16 +55,36 @@ function EntrepriseForm(props) {
             "siteEntreprise": dataOut?.siteEntreprise,
             "niveau": dataOut?.niveau,
             "enActivite": true,
-            "specialites": [dataOut?.specialites.map(s => { return 'specialites/' + s.numSpec })]
+            "specialites": dataOut?.specialites?.map(s => { return {"numSpec": s.numSpec, "libelle": s.libelle} })
         }
 
         if (formType === 'edition') {
-            // TODO : édition
+            setLoading(true);
+            ApiService.callPut('entreprises/' + props?.idEntreprise, body)
+                .then(result => {
+                    setLoading(false);
+                    ToasterService.success('Entreprise éditée avec succès')
+                    navigate('/entreprises/' + props?.idEntreprise)
+                })
+                .catch(e =>
+                {
+                    setLoading(false);
+                    Exception.throw(e.toString())
+                })
         }
         if (formType === 'creation') {
-            // ApiService.callPost('entreprises', body).then(result => {
-            //     console.log(result);
-            // });
+            setLoading(true);
+            ApiService.callPost('entreprises', body)
+                .then(result => {
+                    setLoading(false);
+                    ToasterService.success('Entreprise créée avec succès')
+                    navigate('/entreprises/' + result?.numEntreprise)
+                })
+                .catch(e =>
+                {
+                    setLoading(false);
+                    Exception.throw(e.toString())
+                })
         }
 
     }
@@ -87,8 +111,10 @@ function EntrepriseForm(props) {
             dataIn?.niveau
         ]
 
+        console.log(requiredFields)
+
         requiredFields.forEach((f) => {
-            if (f === null || f === '') {
+            if (!f) {
                 valid = false;
             }
         })
@@ -133,7 +159,7 @@ function EntrepriseForm(props) {
                                            })}/>
                                 </FormControl>
                                 <FormControl label="Code postal *">
-                                    <Input id="cp-input" required
+                                    <Input id="cp-input" required type='number'
                                            value={display(dataIn?.cpEntreprise)}
                                            onChange={(e) => setDataIn({
                                                ...dataIn,
@@ -221,7 +247,7 @@ function EntrepriseForm(props) {
                                     {loadingSpecs ? <StyledSpinnerNext/> :
                                         <Select
                                             options={availableSpecs ? availableSpecs : []}
-                                            valueKey="id"
+                                            valueKey="numSpec"
                                             labelKey="libelle"
                                             placeholder="Choisissez une spécialité"
                                             maxDropdownHeight="300px"
@@ -233,7 +259,7 @@ function EntrepriseForm(props) {
                                 </FormControl>
                             </StyledBody>
                         </Card>
-                        <Button disabled={!formIsValid()} className={style.saveBtn} size={SIZE.large} onClick={(e) => handleSubmit(e)}>
+                        <Button disabled={loading || !formIsValid()} isLoading={loading} className={style.saveBtn} size={SIZE.large} onClick={(e) => handleSubmit(e)}>
                             Enregistrer
                         </Button>
                     </Cell>

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {Button} from "baseui/button";
 import EntrepriseForm from "./EntrepriseForm";
-import {StyledSpinnerNext} from "baseui/spinner";
 import Utils from "../../shared/Utils";
 import ApiService from "../../services/ApiService";
 import ToasterService from "../../services/ToasterService";
@@ -42,7 +41,7 @@ function EntrepriseEdition() {
             <h1>Éditer une entreprise</h1>
             {loading ? Utils.loadingSkeletonElements() :
                 error ? Utils.errorDiv() :
-                <EntrepriseForm data={entreprise} formType={'edition'}/>
+                    <EntrepriseForm idEntreprise={id} data={entreprise} formType={'edition'}/>
             }
         </>
     );

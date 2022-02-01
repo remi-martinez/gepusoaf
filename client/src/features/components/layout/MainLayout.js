@@ -18,6 +18,7 @@ import EntrepriseDetails from "../../pages/entreprises/EntrepriseDetails";
 import EntrepriseCreation from "../../pages/entreprises/EntrepriseCreation";
 import EntrepriseEdition from "../../pages/entreprises/EntrepriseEdition";
 import StudentDetails from "../../pages/student/StudentDetails";
+import StudentEditPage from "../../pages/student/StudentEditPage";
 
 function MainLayout() {
     const [user, setUser] = useState({connected: false, login: '', firstname: '', lastname: '', status: ''});
@@ -54,7 +55,8 @@ function MainLayout() {
                         <Route path="entreprises/new" element={<EntrepriseCreation/>}/>
                         <Route path="stagiaires" element={<StudentPage/>}/>
                         <Route path="stagiaires/:id" element={<StudentDetails/>}/>
-                        <Route path="stagiaires/ajouter" element={<StudentAddPage/>}/>
+                        <Route path="stagiaires/:id/edit" element={<StudentEditPage/>}/>
+                        <Route path="stagiaires/new" element={<StudentAddPage/>}/>
                         <Route path="inscription" element={<Inscription/>}/>
                         <Route path="aide" element={<Help/>}/>
                         <Route path="disconnect" element={<Disconnect user={user} onUserChange={(user) => handleUserChange(user)}/>}/>

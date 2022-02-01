@@ -13,6 +13,7 @@ class ApiService extends React.Component {
             items: []
         };
     }
+
     static callGet(route) {
         return fetch(`${apiUrl}/${route}`, {
             method: 'GET'
@@ -23,7 +24,7 @@ class ApiService extends React.Component {
         return fetch(`${apiUrl}/${route}`, {
             method: 'POST',
             body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         }).then(data => data.json());
     }
 
@@ -31,12 +32,17 @@ class ApiService extends React.Component {
         return fetch(`${apiUrl}/${route}`, {
             method: 'DELETE',
             body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
     }
 
-
-
+    static callPut(route, body) {
+        return fetch(`${apiUrl}/${route}`, {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {'Content-Type': 'application/json'}
+        })
+    }
 }
 
 export default ApiService;

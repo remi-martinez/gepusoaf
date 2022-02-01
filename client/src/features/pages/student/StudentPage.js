@@ -14,7 +14,7 @@ function StudentPage() {
     return (
         <>
             <h1>Stagiaires</h1>
-            <Button onClick={() => navigate('/stagiaires/ajouter')}>
+            <Button onClick={() => navigate('/stagiaires/new')}>
                 <FontAwesomeIcon icon={faPlus}/>&nbsp;Ajouter un étudiant
             </Button>
             <StudentList/>
