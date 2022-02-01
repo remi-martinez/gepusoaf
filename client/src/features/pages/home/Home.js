@@ -33,8 +33,17 @@ function Home() {
 
             <h1>Stage BTS</h1>
             <p>Bienvenue sur la page de gestion des stages</p>
-            <div align={"center"}>
-                <HomeCard/>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <HomeCard title='Espace stagiaire'
+                          description='Découvrez un espace stagiaire dédié avec de nombreuses fonctionnalités'
+                          icon='freelance.png'
+                          btnLabel='Espace stagiaire'
+                          btnRoute='/stagiaires'/>
+                <HomeCard title='Espace entreprises'
+                          description='Consultez dès maintenant la liste des entreprises proposant un stage'
+                          icon='office.png'
+                          btnLabel='Espace entreprise'
+                          btnRoute='/entreprises'/>
             </div>
         </div>
     );

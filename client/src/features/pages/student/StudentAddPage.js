@@ -33,7 +33,7 @@ function StudentAddPage() {
             'enActivite': true,
             'numClasse': valueClasse
         }).then(() => {
-            navigate('/stagiaire');
+            navigate('/stagiaires');
         })
     }
 

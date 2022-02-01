@@ -3,23 +3,21 @@ import {Card, StyledAction, StyledBody} from 'baseui/card';
 import {Button} from 'baseui/button';
 import {useNavigate} from "react-router-dom";
 
-function HomeCard() {
+function HomeCard(props) {
     const navigate = useNavigate();
 
     return (
         <Card
-            overrides={{Root: {style: {width: '328px'}}}}
-            headerImage={
-                'freelance.png'
-            }
-            title="Espace stagiaire"
+            overrides={{Root: {style: {width: '328px', margin: '10px'}}}}
+            headerImage={props?.icon}
+            title={props?.title}
         >
             <StyledBody>
-                Découvrez un espace stagiaire dédié avec de nombreuses fonctionnalités.
+                {props?.description}
             </StyledBody>
             <StyledAction>
-                <Button overrides={{BaseButton: {style: {width: '100%'}}}} onClick={() => navigate('/stagiaire')}>
-                    Se rendre sur l'espace stagiaire
+                <Button overrides={{BaseButton: {style: {width: '100%'}}}} onClick={() => navigate(props?.btnRoute)}>
+                    {props?.btnLabel}
                 </Button>
             </StyledAction>
         </Card>
