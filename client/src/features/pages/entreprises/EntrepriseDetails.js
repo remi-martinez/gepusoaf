@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Card, StyledBody} from "baseui/card";
 import {Cell, Grid} from "baseui/layout-grid";
 import style from './entreprise.module.css'
@@ -45,6 +45,18 @@ function EntrepriseDetails() {
 
     const display = (data) => {
         return (entreprise && data) ? data : noData();
+    }
+
+    const getSpecialites = (data) => {
+        if (entreprise && data) {
+            let listSpecialites = '';
+            data.map((s) => {
+                listSpecialites += s.libelle + ', ';
+            })
+            return listSpecialites.slice(0,-2);
+        } else {
+            return noData();
+        }
     }
 
     return (
@@ -134,8 +146,9 @@ function EntrepriseDetails() {
                                             <ListItem endEnhancer={() => <span>{display(entreprise.niveau)}</span>}>
                                                 <ListItemLabel>Niveau</ListItemLabel>
                                             </ListItem>
-                                            <ListItem endEnhancer={() => <span>SISR</span>}>
-                                                <ListItemLabel>Spécialité</ListItemLabel>
+                                            <ListItem endEnhancer={() =>
+                                                <span>{getSpecialites(entreprise.specialites)}</span>}>
+                                                <ListItemLabel>Spécialités</ListItemLabel>
                                             </ListItem>
                                         </ul>
                                     </StyledBody>

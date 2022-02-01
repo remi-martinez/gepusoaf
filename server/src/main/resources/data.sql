@@ -2,16 +2,19 @@
 -- Base de données :  `geststages`
 --
 
--- CREATE
--- DATABASE bdd_geststages ;
--- USE
--- bdd_geststages ;
+-- CAS 1 : BASE EN LOCAL (DECOMMENTER)
+-- CREATE DATABASE bdd_geststages;
+-- USE bdd_geststages ;
 --
--- CREATE
--- USER 'usergs'@'%' IDENTIFIED BY 'mdpGS';
--- GRANT ALL PRIVILEGES ON bdd_geststages.* TO
--- 'usergs'@'%';
+-- CREATE USER 'usergs'@'%' IDENTIFIED BY 'mdpGS';
+-- GRANT ALL PRIVILEGES ON bdd_geststages.* TO 'usergs'@'%';
 
+-- CAS 2 : BASE HEBERGEE (DECOMMENTER)
+-- USE DABASENAME_HERE;
+
+--
+-- Base de données :  `geststages`
+--
 
 -- --------------------------------------------------------
 
@@ -106,9 +109,10 @@ CREATE TABLE `professeur`
 -- Structure de la table `prof_classe`
 --
 
+DROP TABLE `prof_classe`;
 CREATE TABLE `prof_classe`
 (
-    `num_prof`           int(32) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `num_prof`           int(32) NOT NULL,
     `num_classe`         int(32) NOT NULL,
     `est_prof_principal` tinyint(1) NOT NULL
 );
@@ -181,7 +185,7 @@ ALTER TABLE `mission`
 ALTER TABLE `prof_classe`
     ADD CONSTRAINT `prof_classe_ibfk_1` FOREIGN KEY (`num_prof`) REFERENCES `professeur` (`num_prof`);
 ALTER TABLE `prof_classe`
-  ADD CONSTRAINT `prof_classe_ibfk_2` FOREIGN KEY (`num_classe`) REFERENCES `classe` (`num_classe`);
+    ADD CONSTRAINT `prof_classe_ibfk_2` FOREIGN KEY (`num_classe`) REFERENCES `classe` (`num_classe`);
 
 --
 -- Contraintes pour la table `spec_entreprise`
@@ -189,7 +193,7 @@ ALTER TABLE `prof_classe`
 ALTER TABLE `spec_entreprise`
     ADD CONSTRAINT `spec_entreprise_ibfk_1` FOREIGN KEY (`num_entreprise`) REFERENCES `entreprise` (`num_entreprise`);
 ALTER TABLE `spec_entreprise`
-  ADD CONSTRAINT `spec_entreprise_ibfk_2` FOREIGN KEY (`num_spec`) REFERENCES `specialite` (`num_spec`);
+    ADD CONSTRAINT `spec_entreprise_ibfk_2` FOREIGN KEY (`num_spec`) REFERENCES `specialite` (`num_spec`);
 
 --
 -- Contraintes pour la table `stage`
@@ -197,9 +201,9 @@ ALTER TABLE `spec_entreprise`
 ALTER TABLE `stage`
     ADD CONSTRAINT `stage_ibfk_1` FOREIGN KEY (`num_etudiant`) REFERENCES `etudiant` (`num_etudiant`);
 ALTER TABLE `stage`
-  ADD CONSTRAINT `stage_ibfk_2` FOREIGN KEY (`num_prof`) REFERENCES `professeur` (`num_prof`);
+    ADD CONSTRAINT `stage_ibfk_2` FOREIGN KEY (`num_prof`) REFERENCES `professeur` (`num_prof`);
 ALTER TABLE `stage`
-  ADD CONSTRAINT `stage_ibfk_3` FOREIGN KEY (`num_entreprise`) REFERENCES `entreprise` (`num_entreprise`);
+    ADD CONSTRAINT `stage_ibfk_3` FOREIGN KEY (`num_entreprise`) REFERENCES `entreprise` (`num_entreprise`);
 
 
 --

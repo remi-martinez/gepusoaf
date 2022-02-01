@@ -42,7 +42,7 @@ function EntrepriseEdition() {
             <h1>Éditer une entreprise</h1>
             {loading ? Utils.loadingSkeletonElements() :
                 error ? Utils.errorDiv() :
-                <EntrepriseForm data={entreprise}/>
+                <EntrepriseForm data={entreprise} formType={'edition'}/>
             }
         </>
     );

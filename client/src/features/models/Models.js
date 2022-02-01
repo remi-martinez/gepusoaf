@@ -47,7 +47,11 @@ const entreprises = {
             observation: '',
             siteEntreprise: '',
             niveau: '',
-            enActivite: true
+            enActivite: true,
+            specialites: [{
+                numSpec: 0,
+                libelle: '',
+            }]
         }
     }
 }
