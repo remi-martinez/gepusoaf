@@ -17,7 +17,7 @@ public class StageController {
         this.stageService = stageService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     List<Stage> findAll() {
         return stageService.findAll();
     }
@@ -27,7 +27,7 @@ public class StageController {
         return stageService.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     Stage createStage(@Validated @RequestBody Stage stage) {
         return stageService.createStage(stage);
     }

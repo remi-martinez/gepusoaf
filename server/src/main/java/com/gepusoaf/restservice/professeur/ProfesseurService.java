@@ -2,7 +2,6 @@ package com.gepusoaf.restservice.professeur;
 
 import com.gepusoaf.restservice.login.Credentials;
 import com.sun.istack.NotNull;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class ProfesseurService {
 
     public Professeur updateProfesseur(int id, Professeur pInput) {
         professeurRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Professeur id " + id + " introuvable."));
+                .orElseThrow(() -> new RuntimeException("Professeur id " + id + " introuvable."));
 
         Professeur p = Professeur.builder()
                 .nomProf(pInput.getNomProf())

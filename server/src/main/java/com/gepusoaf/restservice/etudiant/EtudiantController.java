@@ -20,7 +20,7 @@ public class EtudiantController {
         this.etudiantService = etudiantService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     List<Etudiant> findAll() {
         return etudiantService.findAll();
     }
@@ -41,7 +41,7 @@ public class EtudiantController {
         return etudiantService.connect(credentials);
     }
 
-    @PostMapping("/")
+    @PostMapping
     Etudiant createEtudiant(@Validated @RequestBody Etudiant etudiant) {
         return etudiantService.createEtudiant(etudiant);
     }

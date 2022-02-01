@@ -1,7 +1,6 @@
 package com.gepusoaf.restservice.classe;
 
 import com.sun.istack.NotNull;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class ClasseService {
 
     public Classe updateClasse(int id, Classe cInput) {
         classeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Classe id %d introuvable.", id)));
+                .orElseThrow(() -> new RuntimeException(String.format("Classe id %d introuvable.", id)));
 
         Classe c = Classe.builder()
                 .numClasse(id)

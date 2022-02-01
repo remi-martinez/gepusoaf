@@ -1,7 +1,6 @@
 package com.gepusoaf.restservice.stage;
 
 import com.sun.istack.NotNull;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class StageService {
 
     public Stage updateStage(int id, Stage sInput) {
         stageRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Stage id %d introuvable.", id)));
+                .orElseThrow(() -> new RuntimeException(String.format("Stage id %d introuvable.", id)));
 
         Stage s = Stage.builder()
                 .numStage(id)

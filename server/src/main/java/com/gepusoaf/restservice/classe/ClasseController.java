@@ -18,7 +18,7 @@ public class ClasseController {
         this.classeService = classeService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     List<Classe> findAll() {
         return classeService.findAll();
     }
@@ -28,7 +28,7 @@ public class ClasseController {
         return classeService.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     Classe createClasse(@Validated @RequestBody Classe classe) {
         return classeService.createClasse(classe);
     }

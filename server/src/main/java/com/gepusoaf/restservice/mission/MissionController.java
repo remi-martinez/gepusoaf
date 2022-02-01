@@ -18,7 +18,7 @@ public class MissionController {
         this.missionService = missionService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     List<Mission> findAll() {
         return missionService.findAll();
     }
@@ -28,7 +28,7 @@ public class MissionController {
         return missionService.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     Mission createMission(@Validated @RequestBody Mission mission) {
         return missionService.createMission(mission);
     }

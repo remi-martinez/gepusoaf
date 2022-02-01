@@ -1,7 +1,6 @@
 package com.gepusoaf.restservice.entreprise;
 
 import com.sun.istack.NotNull;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class EntrepriseService {
 
     public Entreprise updateEntreprise(int id, Entreprise eInput) {
         entrepriseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Entreprise id " + id + " introuvable."));
+                .orElseThrow(() -> new RuntimeException("Entreprise id " + id + " introuvable."));
 
         Entreprise e = Entreprise.builder()
                 .numEntreprise(id)

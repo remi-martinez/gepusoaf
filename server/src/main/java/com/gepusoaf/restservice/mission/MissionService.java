@@ -1,7 +1,6 @@
 package com.gepusoaf.restservice.mission;
 
 import com.sun.istack.NotNull;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class MissionService {
 
     public Mission updateMission(int id, Mission mInput) {
         missionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Mission id %d introuvable.", id)));
+                .orElseThrow(() -> new RuntimeException(String.format("Mission id %d introuvable.", id)));
 
         Mission m = Mission.builder()
                 .numMission(id)

@@ -18,7 +18,7 @@ public class EntrepriseController {
         this.entrepriseService = entrepriseService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     List<Entreprise> findAll() {
        return entrepriseService.findAll();
     }
@@ -28,7 +28,7 @@ public class EntrepriseController {
         return entrepriseService.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     Entreprise createEntreprise(@Validated @RequestBody Entreprise entreprise) {
         return entrepriseService.createEntreprise(entreprise);
     }

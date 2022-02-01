@@ -20,7 +20,7 @@ public class ProfesseurController {
         this.professeurService = professeurService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     List<Professeur> all() {
         return professeurService.findAll();
     }
@@ -41,7 +41,7 @@ public class ProfesseurController {
         return professeurService.connect(credentials);
     }
 
-    @PostMapping("/")
+    @PostMapping
     Professeur createProfesseur(@Validated @RequestBody Professeur professeur) {
         return professeurService.createProfesseur(professeur);
     }

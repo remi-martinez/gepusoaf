@@ -2,7 +2,6 @@ package com.gepusoaf.restservice.etudiant;
 
 import com.gepusoaf.restservice.login.Credentials;
 import com.sun.istack.NotNull;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,7 +45,7 @@ public class EtudiantService {
 
     public Etudiant updateEtudiant(int id, Etudiant eInput) {
         etudiantRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Etudiant id %d introuvable.", id)));
+                .orElseThrow(() -> new RuntimeException(String.format("Etudiant id %d introuvable.", id)));
 
         Etudiant e = Etudiant.builder()
                 .nomEtudiant(eInput.getNomEtudiant())
