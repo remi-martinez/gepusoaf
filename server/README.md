@@ -53,7 +53,7 @@ Cliquer sur l'un des deux boutons suivants :
 2. L'application s'est ajoutée à votre liste de configurations IntelliJ. On peut le voir dans le coin supérieur droit :  
 ![image](https://user-images.githubusercontent.com/64494563/152053944-8f721c2a-4087-4537-963f-1a935e2a792f.png)  
 L'application vient de se lancer dans l'onglet ![image](https://user-images.githubusercontent.com/64494563/152054025-dced0b20-f7d2-4aaf-a46c-311c90ef85a0.png). 
-Si tout fonctionne bien, la consolle affiche les messages suivants :  
+Si tout fonctionne bien, la console affiche les messages suivants :  
   
 #### **`console`**  
 ![image](https://user-images.githubusercontent.com/64494563/152054206-727a6474-715a-498a-b0ac-78adc66b126c.png)
