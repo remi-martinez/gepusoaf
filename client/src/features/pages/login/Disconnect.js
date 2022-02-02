@@ -18,7 +18,7 @@ function Disconnect(props) {
         navigate('/login')
         LoginService.deleteUserCookie()
         ToasterService.success("Déconnecté avec succès")
-    }, []);
+    }, [navigate, props]);
 
     return (
         <></>

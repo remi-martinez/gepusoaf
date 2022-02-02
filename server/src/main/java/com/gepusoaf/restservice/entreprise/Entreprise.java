@@ -1,6 +1,8 @@
 package com.gepusoaf.restservice.entreprise;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gepusoaf.restservice.specialite.Specialite;
+import com.gepusoaf.restservice.stage.Stage;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -65,5 +67,9 @@ public class Entreprise {
             joinColumns = @JoinColumn(name = "num_entreprise"),
             inverseJoinColumns = @JoinColumn(name = "num_spec"))
     private Set<Specialite> specialites = new HashSet<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "numEntreprise")
+    private Set<Stage> stages = new HashSet<>();
     
 }

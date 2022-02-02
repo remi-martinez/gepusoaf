@@ -12,6 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Button, SIZE} from "baseui/button";
 import Utils from "../../shared/Utils";
 import LoginService from "../../services/LoginService";
+import EntrepriseStage from "./EntrepriseStage";
 
 function EntrepriseDetails() {
     const {id} = useParams();
@@ -51,23 +52,23 @@ function EntrepriseDetails() {
     const getSpecialites = (data) => {
         if (entreprise && data) {
             let listSpecialites = '';
-            data.map((s) => {
+            data.forEach((s) => {
                 listSpecialites += s.libelle + ', ';
             })
-            return listSpecialites.slice(0,-2);
+            return listSpecialites.slice(0, -2);
         } else {
             return noData();
         }
     }
 
     let buttonProf
-    if(LoginService.isTeacher()){
+    if (LoginService.isTeacher()) {
         buttonProf = <Button size={SIZE.small}
-                                   className={style.editBtn}
-                                   onClick={() => navigate('/entreprises/' + id + '/edit')}>
+                             className={style.editBtn}
+                             onClick={() => navigate('/entreprises/' + id + '/edit')}>
             Éditer les informations
         </Button>
-    }else{
+    } else {
         buttonProf = <></>
     }
     return (
@@ -75,6 +76,9 @@ function EntrepriseDetails() {
             <Button onClick={() => navigate('/entreprises')}>
                 Retour
             </Button>
+            <div align='center'>
+                <h1>Entreprise</h1>
+            </div>
             {
                 loading ? Utils.loadingSkeletonElements() :
                     error ? Utils.errorDiv('/entreprises') :
@@ -168,6 +172,13 @@ function EntrepriseDetails() {
                             </Cell>
                         </Grid>
             }
+            <br/>
+            {
+                loading ? Utils.skeleton(3) :
+                    error ? <span>Erreur</span> :
+                        <EntrepriseStage stages={entreprise?.stages}/>
+            }
+
         </>
     );
 }

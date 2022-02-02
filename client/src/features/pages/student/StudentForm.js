@@ -92,7 +92,7 @@ function StudentForm() {
                     setError(false);
                 })
         }
-    }, []);
+    }, [formType, id]);
 
     const formIsValid = () => {
         let valid = true;

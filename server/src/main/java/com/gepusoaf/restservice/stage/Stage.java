@@ -50,6 +50,7 @@ public class Stage {
     @JoinColumn(name = "num_prof", nullable = false)
     private Professeur numProf;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn(name = "num_entreprise", nullable = false)
     private Entreprise numEntreprise;

@@ -95,10 +95,6 @@ function StudentList() {
         )
     }
 
-    const getStages = () => {
-        setLoading(true);
-    }
-
     useEffect(() => {
         getStudent();
     }, []);

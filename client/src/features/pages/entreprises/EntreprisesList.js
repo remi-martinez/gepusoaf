@@ -137,7 +137,7 @@ function EntreprisesList() {
             .catch((e) => Exception.throw(e.toString()))
     }
 
-    var rowActions;
+    let rowActions;
     if(LoginService.isTeacher()){
         rowActions = [{
             label: 'Delete',

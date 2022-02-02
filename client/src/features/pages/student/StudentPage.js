@@ -1,15 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button} from "baseui/button";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import StudentList from "./StudentList";
 import LoginService from "../../services/LoginService";
-
-const marginSide = {
-    marginRight: 10
-};
-
 
 function StudentPage() {
     const navigate = useNavigate();

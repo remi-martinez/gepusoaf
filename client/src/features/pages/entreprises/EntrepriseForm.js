@@ -25,18 +25,18 @@ function EntrepriseForm(props) {
         setLoadingSpecs(true);
         ApiService.callGet('specialites')
             .then(result => {
-                let specs = [];
-                result.map(s => {
-                    specs.push({numSpec: s.numSpec, libelle: s.libelle});
-                })
-                setAvailableSpecs(specs);
+                setAvailableSpecs(
+                    result.map(s => {
+                        return {numSpec: s.numSpec, libelle: s.libelle};
+                    })
+                );
                 setLoadingSpecs(false);
             })
             .catch(e => Exception.throw(e.toString()))
         if (formType === 'edition' && props.data) {
             setDataIn(props.data);
         }
-    }, [])
+    }, [formType, props.data])
 
     const handleSubmit = (e) => {
         e.preventDefault();

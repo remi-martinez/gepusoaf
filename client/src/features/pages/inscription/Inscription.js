@@ -30,14 +30,6 @@ function Inscription() {
 
     });
 
-
-    const itemProps = {
-        backgroundColor: 'mono300',
-        height: 'scale1000',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    };
     const getProfesseurs = () => {
         ApiService.callGet('professeurs')
             .then(
