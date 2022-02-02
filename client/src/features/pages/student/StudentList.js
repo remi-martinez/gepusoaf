@@ -11,12 +11,21 @@ import Exception from "../../services/Exception";
 import {StyledSpinnerNext} from "baseui/spinner";
 import style from '../entreprises/entreprise.module.css'
 import {useNavigate} from "react-router-dom";
+import LoginService from "../../services/LoginService";
 
 function StudentList() {
     const [css] = useStyletron();
     const [loading, setLoading] = useState(false);
     const [student, setStudent] = useState([]);
     const navigate = useNavigate()
+
+    function buttonAdd(value){
+        if(LoginService.isTeacher()){
+           return <Button onClick={() => navigate('/stagiaires/' + value + '/edit')}>
+                <FontAwesomeIcon icon={faPen}/>
+            </Button>
+        }
+    }
 
     const columns = [
         CustomColumn({
@@ -30,9 +39,7 @@ function StudentList() {
                             <Button onClick={() => navigate('/stagiaires/' + data.value)}>
                                 <FontAwesomeIcon icon={faEye} color='#1E57B7'/>
                             </Button>
-                            <Button onClick={() => navigate('/stagiaires/' + data.value + '/edit')}>
-                                <FontAwesomeIcon icon={faPen}/>
-                            </Button>
+                            {buttonAdd(data.value)}
                         </ButtonGroup>
                     </div>
                 );
@@ -122,7 +129,7 @@ function StudentList() {
                 :
                 <StatefulDataTable columns={columns}
                                    rows={student}
-                                   rowActions={rowActions}
+                                   rowActions={LoginService.isTeacher() ? rowActions : {}}
                                    rowHeight={50}
                                    emptyMessage={() => <div className={style.centeredDiv}>Aucune donnée</div>}/>
             }

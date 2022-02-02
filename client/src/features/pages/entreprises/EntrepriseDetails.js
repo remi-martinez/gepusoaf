@@ -11,6 +11,7 @@ import {faEnvelope, faLink} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Button, SIZE} from "baseui/button";
 import Utils from "../../shared/Utils";
+import LoginService from "../../services/LoginService";
 
 function EntrepriseDetails() {
     const {id} = useParams();
@@ -59,6 +60,16 @@ function EntrepriseDetails() {
         }
     }
 
+    let buttonProf
+    if(LoginService.isTeacher()){
+        buttonProf = <Button size={SIZE.small}
+                                   className={style.editBtn}
+                                   onClick={() => navigate('/entreprises/' + id + '/edit')}>
+            Éditer les informations
+        </Button>
+    }else{
+        buttonProf = <></>
+    }
     return (
         <>
             <Button onClick={() => navigate('/entreprises')}>
@@ -153,11 +164,7 @@ function EntrepriseDetails() {
                                         </ul>
                                     </StyledBody>
                                 </Card>
-                                <Button size={SIZE.small}
-                                        className={style.editBtn}
-                                        onClick={() => navigate('/entreprises/' + id + '/edit')}>
-                                    Éditer les informations
-                                </Button>
+                                {buttonProf}
                             </Cell>
                         </Grid>
             }
