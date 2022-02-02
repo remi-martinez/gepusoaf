@@ -7,11 +7,9 @@ import {Cell, Grid} from "baseui/layout-grid";
 import {DatePicker} from "baseui/datepicker";
 import {SIZE} from "baseui/tag";
 import {Textarea} from "baseui/textarea";
-import {Select} from "baseui/select";
+import {Select, TYPE} from "baseui/select";
 import ApiService from "../../services/ApiService";
-import ToasterService from "../../services/ToasterService";
 import Exception from "../../services/Exception";
-import {StyledSpinnerNext} from "baseui/spinner";
 
 function Inscription() {
 
@@ -214,6 +212,9 @@ function Inscription() {
                                     <Select
                                         options={generateEntreprisesList()}
                                         value={formValues.entreprise}
+                                        type={TYPE.search}
+                                        maxDropdownHeight="300px"
+                                        placeholder='Sélectionner une entreprise...'
                                         onChange={params => setFormValues({...formValues, entreprise: params.value})}
                                     />
                                 </FormControl>
@@ -223,6 +224,9 @@ function Inscription() {
                                     <Select
                                         options={generateEtudiantsList()}
                                         value={formValues.etudiant}
+                                        type={TYPE.search}
+                                        maxDropdownHeight="300px"
+                                        placeholder='Sélectionner un étudiant...'
                                         onChange={params => setFormValues({...formValues, etudiant: params.value})}
                                     />
                                 </FormControl>
@@ -232,6 +236,9 @@ function Inscription() {
                                     <Select
                                         options={generateProfList()}
                                         value={formValues.professeur}
+                                        type={TYPE.search}
+                                        maxDropdownHeight="300px"
+                                        placeholder='Sélectionner un professeur...'
                                         onChange={params => setFormValues({...formValues, professeur: params.value})}
                                     />
                                 </FormControl>
