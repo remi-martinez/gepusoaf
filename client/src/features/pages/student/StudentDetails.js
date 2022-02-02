@@ -8,6 +8,7 @@ import Utils from "../../shared/Utils";
 import style from "./student.module.css";
 import {Card, StyledBody} from "baseui/card";
 import {ListItem, ListItemLabel} from "baseui/list";
+import LoginService from "../../services/LoginService";
 
 function StudentDetails() {
     const {id} = useParams();
@@ -47,7 +48,12 @@ function StudentDetails() {
         <>
             <Button onClick={() => navigate('/stagiaires')}>
                 Retour
-            </Button>
+            </Button>&nbsp;
+            {
+                LoginService.isTeacher() ? <Button onClick={() => navigate('/stagiaires/' + id + '/edit')}>
+                    Editer les informations
+                </Button> : <></>
+            }
             {
                 loading ? Utils.skeletonElementsEtudiant() :
                     error ? Utils.errorDiv('/stagiaires') :

@@ -48,6 +48,7 @@ public class EtudiantService {
                 .orElseThrow(() -> new RuntimeException(String.format("Etudiant id %d introuvable.", id)));
 
         Etudiant e = Etudiant.builder()
+                .numEtudiant(id)
                 .nomEtudiant(eInput.getNomEtudiant())
                 .prenomEtudiant(eInput.getPrenomEtudiant())
                 .anneeObtention(eInput.getAnneeObtention())

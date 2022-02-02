@@ -18,12 +18,17 @@ function StudentForm() {
     const [error, setError] = useState(false);
 
     const [classes, setClasses] = useState([]);
+    const [loadingClasses, setLoadingClasses] = useState(true);
     const [valueNom, setValueNom] = useState("");
     const [valuePrenom, setValuePrenom] = useState("");
     const [valueNomUtilisateur, setValueNomUtilisateur] = useState("");
     const [valueMotDePasse, setValueMotDePasse] = useState("");
     const [valueDateBTS, setValueDateBTS] = useState("");
     const [valueClasse, setValueClasse] = useState("");
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const formType = location?.pathname;
     const itemProps = {
         backgroundColor: 'mono300',
         height: 'scale1000',
@@ -31,8 +36,6 @@ function StudentForm() {
         alignItems: 'center',
         justifyContent: 'center',
     };
-    const navigate = useNavigate();
-    const location = useLocation();
 
     const emptyStringIfNull = (str) => {
         return str ? str : '';
@@ -43,23 +46,24 @@ function StudentForm() {
     }
 
     useEffect(() => {
-        const formType = location?.pathname;
-        setLoading(true);
-
-        ApiService.callGet('classes').then(
-            (result) => {
-                let _classes = []
-                result.forEach((c) => {
-                    _classes.push({
-                        numClasse: c.numClasse,
-                        nomClasse: c.nomClasse
-                    });
+        setLoadingClasses(true);
+        ApiService.callGet('classes')
+            .then(
+                (result) => {
+                    let _classes = []
+                    result.forEach((c) => {
+                        _classes.push({
+                            numClasse: c.numClasse,
+                            nomClasse: c.nomClasse
+                        });
+                    })
+                    setClasses(_classes);
+                    setLoadingClasses(false);
                 })
-                setClasses(_classes);
-                if (formType.includes('new')) {
-                    setLoading(false);
-                }
-            });
+            .catch(() => {
+                setLoadingClasses(false);
+                Exception.throw('Les classes n\'ont pas pu être chargées.');
+            })
 
 
         if (formType.includes('edit')) {
@@ -75,7 +79,10 @@ function StudentForm() {
                         setValueNomUtilisateur(emptyStringIfNull(result?.login));
                         setValueMotDePasse(emptyStringIfNull(result?.mdp));
                         setValueDateBTS(emptyStringIfNull(result?.anneeObtention));
-                        setClasses(emptyArrayIfNull(result?.numClasse?.classes));
+                        setValueClasse(emptyArrayIfNull([{
+                            numClasse: result.numClasse.numClasse,
+                            nomClasse: result.numClasse.nomClasse
+                        }]));
                         setLoading(false);
                     }
                 })
@@ -104,7 +111,7 @@ function StudentForm() {
 
     const onClick = function () {
         setLoading(true);
-        apiService.callPost('etudiants', {
+        const body = {
             'nomEtudiant': valueNom,
             'prenomEtudiant': valuePrenom,
             'anneeObtention': valueDateBTS,
@@ -112,25 +119,42 @@ function StudentForm() {
             'mdp': valueMotDePasse,
             'enActivite': true,
             'numClasse': valueClasse[0]
-        })
-            .then(() => {
-                setLoading(false);
-                ToasterService.success('Stagiaire ajouté avec succès')
-                navigate('/stagiaires');
-            })
-            .catch(e => {
-                setLoading(false);
-                setError(true);
-                ToasterService.error('Une erreur est survenue')
-                Exception.throw(e.toString())
-            });
+        }
+        if (formType.includes('new')) {
+            apiService.callPost('etudiants', body)
+                .then(() => {
+                    setLoading(false);
+                    ToasterService.success('Stagiaire ajouté avec succès')
+                    navigate('/stagiaires');
+                })
+                .catch(e => {
+                    setLoading(false);
+                    setError(true);
+                    ToasterService.error('Une erreur est survenue')
+                    Exception.throw(e.toString())
+                });
+        } else if (formType.includes('edit')) {
+            apiService.callPut('etudiants/' + id, body)
+                .then(() => {
+                    setLoading(false);
+                    ToasterService.success('Stagiaire modifié avec succès')
+                    navigate('/stagiaires/' + id);
+                })
+                .catch(e => {
+                    setLoading(false);
+                    setError(true);
+                    ToasterService.error('Une erreur est survenue')
+                    Exception.throw(e.toString())
+                });
+        }
     }
 
     return (
         <>
             {
                 loading ?
-                    <div style={{display: 'flex', padding: '5%', justifyContent: 'center'}}><StyledSpinnerNext/></div> :
+                    <div style={{display: 'flex', padding: '5%', justifyContent: 'center'}}><StyledSpinnerNext/>
+                    </div> :
                     error ? Utils.errorDiv('/stagiaires') :
                         <form onSubmit={e => e.preventDefault()}>
                             <FlexGrid
@@ -202,17 +226,20 @@ function StudentForm() {
                                 </FlexGridItem>
                                 <FlexGridItem>
                                     <label htmlFor="classe">Classe *</label>
-                                    <Select
-                                        {...itemProps}
-                                        name="classe"
-                                        valueKey="numClasse"
-                                        labelKey="nomClasse"
-                                        clearOnEscape
-                                        required
-                                        options={classes}
-                                        value={valueClasse}
-                                        onChange={params => setValueClasse(params.value)}
-                                    />
+                                    {
+                                        loadingClasses ? Utils.skeleton(1) : <Select
+                                            {...itemProps}
+                                            name="classe"
+                                            valueKey="numClasse"
+                                            labelKey="nomClasse"
+                                            clearOnEscape
+                                            required
+                                            options={classes}
+                                            value={valueClasse}
+                                            onChange={params => setValueClasse(params.value)}
+                                        />
+                                    }
+
                                 </FlexGridItem>
                             </FlexGrid>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -221,7 +248,7 @@ function StudentForm() {
                                 </Button>
                                 <p>Les champs avec le symbole * sont obligatoires</p>
                                 <Button style={{float: "right", marginRight: "10"}} type="submit"
-                                        // disabled={!formIsValid()}
+                                        disabled={!formIsValid()}
                                         onClick={() => onClick()}>
                                     Enregistrer
                                 </Button>
