@@ -19,6 +19,7 @@ function LoginPage(props) {
 
     const handleButtonClick = (e) => {
         setLoading(true);
+        setTimeout(() => setLoading(false), 500);
         e.preventDefault();
         LoginService.login(login, password, status)
             .then((result) => {
@@ -43,9 +44,9 @@ function LoginPage(props) {
                     props.onUserChange(newUser)
                     LoginService.setUserCookie(newUser);
                 }
+                setLoading(false);
                 navigate('/')
                 ToasterService.success("Connecté avec succès !")
-                setLoading(false);
             }, () => {
                 setLoading(false)
                 ToasterService.error("Erreur de connexion")

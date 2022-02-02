@@ -28,10 +28,9 @@ class ApiService extends React.Component {
         }).then(data => data.json());
     }
 
-    static callDelete(route, body) {
+    static callDelete(route) {
         return fetch(`${apiUrl}/${route}`, {
             method: 'DELETE',
-            body: JSON.stringify(body),
             headers: {'Content-Type': 'application/json'}
         })
     }

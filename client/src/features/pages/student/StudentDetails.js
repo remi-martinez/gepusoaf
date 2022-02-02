@@ -50,7 +50,7 @@ function StudentDetails() {
             </Button>
             {
                 loading ? Utils.skeletonElementsEtudiant() :
-                    error ? Utils.errorDiv() :
+                    error ? Utils.errorDiv('/stagiaires') :
                         <Card title="Informations" className={style.cards}>
                             <StyledBody>
                                 <ul className={style.ulStyle}>

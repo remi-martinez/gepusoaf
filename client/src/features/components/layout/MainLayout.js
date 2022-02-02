@@ -7,7 +7,7 @@ import Inscription from "../../pages/inscription/Inscription";
 import StudentPage from "../../pages/student/StudentPage";
 import LoginPage from "../../pages/login/LoginPage";
 import Entreprises from "../../pages/entreprises/Entreprises";
-import StudentAddPage from "../../pages/student/StudentAddPage";
+import StudentForm from "../../pages/student/StudentForm";
 import {ToasterContainer} from "baseui/toast";
 import {useEffect, useState} from "react";
 import PageNotFound from "../../pages/404/PageNotFound";
@@ -18,7 +18,6 @@ import EntrepriseDetails from "../../pages/entreprises/EntrepriseDetails";
 import EntrepriseCreation from "../../pages/entreprises/EntrepriseCreation";
 import EntrepriseEdition from "../../pages/entreprises/EntrepriseEdition";
 import StudentDetails from "../../pages/student/StudentDetails";
-import StudentEditPage from "../../pages/student/StudentEditPage";
 
 function MainLayout() {
     const [user, setUser] = useState({connected: false, login: '', firstname: '', lastname: '', status: ''});
@@ -55,8 +54,8 @@ function MainLayout() {
                         <Route path="entreprises/new" element={<EntrepriseCreation/>}/>
                         <Route path="stagiaires" element={<StudentPage/>}/>
                         <Route path="stagiaires/:id" element={<StudentDetails/>}/>
-                        <Route path="stagiaires/:id/edit" element={<StudentEditPage/>}/>
-                        <Route path="stagiaires/new" element={<StudentAddPage/>}/>
+                        <Route path="stagiaires/:id/edit" element={<StudentForm/>}/>
+                        <Route path="stagiaires/new" element={<StudentForm/>}/>
                         <Route path="inscription" element={<Inscription/>}/>
                         <Route path="aide" element={<Help/>}/>
                         <Route path="disconnect" element={<Disconnect user={user} onUserChange={(user) => handleUserChange(user)}/>}/>

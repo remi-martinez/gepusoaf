@@ -66,7 +66,7 @@ function EntrepriseDetails() {
             </Button>
             {
                 loading ? Utils.loadingSkeletonElements() :
-                    error ? Utils.errorDiv() :
+                    error ? Utils.errorDiv('/entreprises') :
                         <Grid className={style.cards}>
                             <Cell span={6}>
                                 <Card title="Informations" className={style.cards}>

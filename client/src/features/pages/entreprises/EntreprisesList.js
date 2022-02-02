@@ -29,7 +29,7 @@ function EntreprisesList() {
             mapDataToValue: (data) => data.numEntreprise,
             renderCell: function Cell(data) {
                 let buttonProf;
-                if (loginService.getUserRolesCookie() !== "teacher") {
+                if (loginService.getUserRolesCookie() === "teacher") {
                     buttonProf =
                         <Button onClick={() => navigate('/entreprises/' + data.value + '/edit')}>
                             <FontAwesomeIcon icon={faPen}/>
@@ -138,7 +138,7 @@ function EntreprisesList() {
     }
 
     var rowActions;
-    if (loginService.getUserRolesCookie() !== "teacher") {
+    if (loginService.getUserRolesCookie() === "teacher") {
         rowActions = [{
             label: 'Delete',
             onClick: ({row}) => removeRow(row.id),

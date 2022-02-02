@@ -111,8 +111,6 @@ function EntrepriseForm(props) {
             dataIn?.niveau
         ]
 
-        console.log(requiredFields)
-
         requiredFields.forEach((f) => {
             if (!f) {
                 valid = false;
@@ -259,6 +257,7 @@ function EntrepriseForm(props) {
                                 </FormControl>
                             </StyledBody>
                         </Card>
+                        <p>Les champs avec le symbole * sont obligatoires</p>
                         <Button disabled={loading || !formIsValid()} isLoading={loading} className={style.saveBtn} size={SIZE.large} onClick={(e) => handleSubmit(e)}>
                             Enregistrer
                         </Button>

@@ -11,6 +11,7 @@ import Exception from "../../services/Exception";
 import {StyledSpinnerNext} from "baseui/spinner";
 import style from '../entreprises/entreprise.module.css'
 import {useNavigate} from "react-router-dom";
+import ToasterService from "../../services/ToasterService";
 
 function StudentList() {
     const [css] = useStyletron();
@@ -102,7 +103,9 @@ function StudentList() {
 
     function removeRow(id) {
         removeRows([id]);
-        apiService.callDelete('etudiants/' + id,)
+        apiService.callDelete('etudiants/' + id)
+            .then(() => ToasterService.info('Stagiaire supprimé avec succès'))
+            .catch((e) => Exception.throw(e.toString()))
     }
 
     const rowActions = [

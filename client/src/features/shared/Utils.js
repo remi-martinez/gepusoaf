@@ -60,11 +60,11 @@ class Utils extends React.Component {
         );
     }
 
-    static errorDiv() {
+    static errorDiv(link) {
         return (
             <div className={style.errorDiv}>
                 <h3>Une erreur est survenue</h3>
-                <p>Veuillez réessayer plus tard. <Link to="/entreprises">Retour</Link></p>
+                <p>Veuillez réessayer plus tard. <Link to={link}>Retour</Link></p>
             </div>
         );
     }
