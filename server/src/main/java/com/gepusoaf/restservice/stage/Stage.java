@@ -1,15 +1,17 @@
 package com.gepusoaf.restservice.stage;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gepusoaf.restservice.entreprise.Entreprise;
 import com.gepusoaf.restservice.etudiant.Etudiant;
+import com.gepusoaf.restservice.mission.Mission;
 import com.gepusoaf.restservice.professeur.Professeur;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,7 +43,7 @@ public class Stage {
     @Column(name = "observation_stage")
     private String observationStage;
 
-    @JsonBackReference
+    @JsonIgnoreProperties({"stages"})
     @ManyToOne(optional = false)
     @JoinColumn(name = "num_etudiant", nullable = false)
     private Etudiant numEtudiant;
@@ -55,4 +57,6 @@ public class Stage {
     @JoinColumn(name = "num_entreprise", nullable = false)
     private Entreprise numEntreprise;
 
+    @OneToMany(mappedBy = "numStage")
+    private List<Mission> missions;
 }

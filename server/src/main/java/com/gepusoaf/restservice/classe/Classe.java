@@ -26,6 +26,6 @@ public class Classe {
     @JoinTable(name = "prof_classe",
             joinColumns = @JoinColumn(name = "num_classe"),
             inverseJoinColumns = @JoinColumn(name = "num_prof"))
-    private Set<Professeur> classes = new HashSet<>();
+    private Set<Professeur> professeurs = new HashSet<>();
 
 }

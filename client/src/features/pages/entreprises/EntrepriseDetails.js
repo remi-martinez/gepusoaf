@@ -71,6 +71,7 @@ function EntrepriseDetails() {
     } else {
         buttonProf = <></>
     }
+
     return (
         <>
             <Button onClick={() => navigate('/entreprises')}>
@@ -176,7 +177,7 @@ function EntrepriseDetails() {
             {
                 loading ? Utils.skeleton(3) :
                     error ? <span>Erreur</span> :
-                        <EntrepriseStage stages={entreprise?.stages}/>
+                        <EntrepriseStage entreprise={entreprise}/>
             }
 
         </>

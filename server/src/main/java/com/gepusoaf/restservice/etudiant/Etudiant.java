@@ -1,5 +1,7 @@
 package com.gepusoaf.restservice.etudiant;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gepusoaf.restservice.classe.Classe;
 import com.gepusoaf.restservice.stage.Stage;
@@ -44,8 +46,4 @@ public class Etudiant {
 
     @Column(name = "en_activite", nullable = false)
     private Boolean enActivite = false;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "numEtudiant")
-    private List<Stage> stages;
 }

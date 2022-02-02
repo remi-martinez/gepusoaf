@@ -43,9 +43,6 @@ function EntreprisesList() {
                             <Button onClick={() => navigate('/entreprises/' + data.value)}>
                                 <FontAwesomeIcon icon={faEye} color='#1E57B7'/>
                             </Button>
-                            <Button onClick={() => navigate('/inscription')}>  {/*TODO : si y'a le temps, passer les données dans inscription (entreprise)*/}
-                                <FontAwesomeIcon icon={faHandshake}/>
-                            </Button>
                             {buttonProf}
                         </ButtonGroup>
 
@@ -95,9 +92,9 @@ function EntreprisesList() {
                     let result = [];
                     data.map((e) => {
                         let spec = [];
-                        for (const specialite of e.specialites) {
+                        e.specialites.forEach(specialite => {
                             spec.push(specialite.libelle)
-                        }
+                        })
                         return result.push({
                             id: e.numEntreprise,
                             data: {

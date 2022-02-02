@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import style from "./entreprise.module.css";
-import {StatefulDataTable, StringColumn} from "baseui/data-table";
+import {CustomColumn, StatefulDataTable, StringColumn} from "baseui/data-table";
 import {StyledSpinnerNext} from "baseui/spinner";
 import LoginService from "../../services/LoginService";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -16,18 +16,16 @@ function EntrepriseStage(props) {
 
 
     useEffect(() => {
-
-        // FIXME
-        console.log(props?.stage)
-        let result = props?.stage?.map((s) => {
+        let result = props?.entreprise?.stages?.map((s) => {
                 return {
                     id: s.numStage,
                     data: {
-                        typeStage: 'coucou'
+                        nomEtudiant: s?.numEtudiant?.prenomEtudiant + ' ' + s?.numEtudiant?.nomEtudiant,
+                        descProjet: s.descProjet,
                     }
                 }
             });
-        console.log(result)
+        setStages(result)
         if(LoginService.isTeacher()){
             setRowActions([{
                 label: 'Delete',
@@ -54,11 +52,11 @@ function EntrepriseStage(props) {
     const columns = [
         StringColumn({
             title: 'Etudiant',
-            mapDataToValue: (data) => data.typeStage,
+            mapDataToValue: (data) => data.nomEtudiant,
         }),
         StringColumn({
             title: 'Projet',
-            mapDataToValue: (data) => data.typeStage,
+            mapDataToValue: (data) => data.descProjet,
         })
     ];
 
