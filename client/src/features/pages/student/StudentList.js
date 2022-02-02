@@ -70,7 +70,7 @@ function StudentList() {
                     data.map((s) => {
                         let entreprises = [];
                         let profs = [];
-                        s.stages.forEach((stage) => {
+                        s?.stages?.forEach((stage) => {
                             profs.push(stage.numProf.nomProf +" " + stage.numProf.prenomProf)
                             entreprises.push(stage.numEntreprise.raisonSociale)
                         })

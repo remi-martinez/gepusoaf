@@ -60,7 +60,7 @@ public class Entreprise {
     private String niveau;
 
     @Column(name = "en_activite", nullable = false)
-    private Boolean enActivite = false;
+    private Boolean enActivite = true;
 
     @ManyToMany
     @JoinTable(name = "spec_entreprise",

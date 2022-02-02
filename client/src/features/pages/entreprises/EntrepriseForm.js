@@ -55,7 +55,7 @@ function EntrepriseForm(props) {
             "siteEntreprise": dataOut?.siteEntreprise,
             "niveau": dataOut?.niveau,
             "enActivite": true,
-            "specialites": dataOut?.specialites?.map(s => { return {"numSpec": s.numSpec, "libelle": s.libelle} })
+            "specialites": [dataOut?.specialites?.map(s => { return s.numSpec })][0]
         }
 
         if (formType === 'edition') {
@@ -239,7 +239,7 @@ function EntrepriseForm(props) {
                                 </FormControl>
                             </StyledBody>
                         </Card>
-                        <Card title="Spécialité" className={style.cards}>
+                        <Card title="Spécialités" className={style.cards}>
                             <StyledBody>
                                 <FormControl>
                                     {loadingSpecs ? <StyledSpinnerNext/> :
@@ -247,7 +247,7 @@ function EntrepriseForm(props) {
                                             options={availableSpecs ? availableSpecs : []}
                                             valueKey="numSpec"
                                             labelKey="libelle"
-                                            placeholder="Choisissez une spécialité"
+                                            placeholder="Choisissez une ou plusieurs spécialités"
                                             maxDropdownHeight="300px"
                                             multi
                                             onChange={e => handleMultiSelectChange(e)}
@@ -258,7 +258,11 @@ function EntrepriseForm(props) {
                             </StyledBody>
                         </Card>
                         <p>Les champs avec le symbole * sont obligatoires</p>
-                        <Button disabled={loading || !formIsValid()} isLoading={loading} className={style.saveBtn} size={SIZE.large} onClick={(e) => handleSubmit(e)}>
+                        <Button disabled={loading || !formIsValid()}
+                                isLoading={loading}
+                                className={style.saveBtn}
+                                size={SIZE.large}
+                                onClick={(e) => handleSubmit(e)}>
                             Enregistrer
                         </Button>
                     </Cell>

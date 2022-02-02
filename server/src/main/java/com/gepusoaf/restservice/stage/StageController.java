@@ -28,12 +28,12 @@ public class StageController {
     }
 
     @PostMapping
-    Stage createStage(@Validated @RequestBody Stage stage) {
-        return stageService.createStage(stage);
+    Stage createStage(@Validated @RequestBody StageInput stageInput) {
+        return stageService.createStage(stageInput);
     }
 
     @PutMapping("/{id}")
-    Stage updateStage(@PathVariable int id, @Validated @RequestBody Stage stageDetails) {
+    Stage updateStage(@PathVariable int id, @Validated @RequestBody StageInput stageDetails) {
         return stageService.updateStage(id, stageDetails);
     }
 

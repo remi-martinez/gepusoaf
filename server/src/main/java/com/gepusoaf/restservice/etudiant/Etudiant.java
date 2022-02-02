@@ -46,4 +46,8 @@ public class Etudiant {
 
     @Column(name = "en_activite", nullable = false)
     private Boolean enActivite = false;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "numEtudiant")
+    private List<Stage> stages;
 }

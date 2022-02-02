@@ -42,13 +42,13 @@ public class EtudiantController {
     }
 
     @PostMapping
-    Etudiant createEtudiant(@Validated @RequestBody Etudiant etudiant) {
-        return etudiantService.createEtudiant(etudiant);
+    Etudiant createEtudiant(@Validated @RequestBody EtudiantInput etudiantInput) {
+        return etudiantService.createEtudiant(etudiantInput);
     }
 
     @PutMapping("/{id}")
-    Etudiant updateEtudiant(@PathVariable int id, @Validated @RequestBody Etudiant etudiantDetails) {
-        return etudiantService.updateEtudiant(id, etudiantDetails);
+    Etudiant updateEtudiant(@PathVariable int id, @Validated @RequestBody EtudiantInput etudiantInput) {
+        return etudiantService.updateEtudiant(id, etudiantInput);
     }
 
     @DeleteMapping("/{id}")

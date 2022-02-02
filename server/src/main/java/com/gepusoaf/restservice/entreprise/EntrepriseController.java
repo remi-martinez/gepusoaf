@@ -29,13 +29,13 @@ public class EntrepriseController {
     }
 
     @PostMapping
-    Entreprise createEntreprise(@Validated @RequestBody Entreprise entreprise) {
-        return entrepriseService.createEntreprise(entreprise);
+    Entreprise createEntreprise(@Validated @RequestBody EntrepriseInput entrepriseInput) {
+        return entrepriseService.createEntreprise(entrepriseInput);
     }
 
     @PutMapping("/{id}")
-    Entreprise updateEntreprise(@PathVariable int id, @Validated @RequestBody Entreprise entrepriseDetails) {
-        return entrepriseService.updateEntreprise(id, entrepriseDetails);
+    Entreprise updateEntreprise(@PathVariable int id, @Validated @RequestBody EntrepriseInput entrepriseInput) {
+        return entrepriseService.updateEntreprise(id, entrepriseInput);
     }
 
     @DeleteMapping("/{id}")

@@ -1,58 +1,35 @@
 import React, {useEffect, useState} from 'react';
 import style from "./entreprise.module.css";
 import {CustomColumn, StatefulDataTable, StringColumn} from "baseui/data-table";
-import {StyledSpinnerNext} from "baseui/spinner";
-import LoginService from "../../services/LoginService";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTimes} from "@fortawesome/free-solid-svg-icons";
-import apiService from "../../services/ApiService";
-import ToasterService from "../../services/ToasterService";
-import Exception from "../../services/Exception";
+import {useStyletron} from "baseui";
+import {Table} from "baseui/table";
 
 function EntrepriseStage(props) {
-    const [loading, setLoading] = useState(false); // FIXME
     const [stages, setStages] = useState([]);
-    const [rowActions, setRowActions] = useState([]);
 
 
     useEffect(() => {
         let result = props?.entreprise?.stages?.map((s) => {
-                return {
-                    id: s.numStage,
-                    data: {
-                        nomEtudiant: s?.numEtudiant?.prenomEtudiant + ' ' + s?.numEtudiant?.nomEtudiant,
-                        descProjet: s.descProjet,
-                    }
+            return {
+                id: s.numStage,
+                data: {
+                    nomEtudiant: s?.numEtudiant?.prenomEtudiant + ' ' + s?.numEtudiant?.nomEtudiant,
+                    typeStage: s.typeStage,
+                    descProjet: s.descProjet,
                 }
-            });
+            }
+        });
         setStages(result)
-        if(LoginService.isTeacher()){
-            setRowActions([{
-                label: 'Delete',
-                onClick: ({row}) => removeRow(row.id),
-                renderIcon: ({size}) => <FontAwesomeIcon icon={faTimes} color="red"/>,
-            }]);
-        } else {
-            setRowActions([props]);
-        }
     }, [props?.stage]);
-
-    function removeRows(ids) {
-        const nextRows = stages.filter(row => !ids.includes(row.id));
-        setStages(nextRows)
-    }
-
-    function removeRow(id) {
-        removeRows([id]);
-        apiService.callDelete('stages/' + id)
-            .then(() => ToasterService.info('Stage supprimé avec succès'))
-            .catch((e) => Exception.throw(e.toString()))
-    }
 
     const columns = [
         StringColumn({
             title: 'Etudiant',
             mapDataToValue: (data) => data.nomEtudiant,
+        }),
+        StringColumn({
+            title: 'Type',
+            mapDataToValue: (data) => data.typeStage,
         }),
         StringColumn({
             title: 'Projet',
@@ -64,20 +41,13 @@ function EntrepriseStage(props) {
     return (
         <>
             <div align='center'>
-                <h1>Stage</h1>
+                <h1>Stages</h1>
             </div>
             <div style={{height: '600px', width: 'auto'}}>
-                {loading ?
-                    <div className={style.centeredDiv}>
-                        <StyledSpinnerNext/>
-                    </div>
-                    :
-                    <StatefulDataTable columns={columns}
-                                       rows={stages}
-                                       rowHeight={50}
-                                       rowActions={rowActions}
-                                       emptyMessage={() => <span className={style.centeredDiv}>Aucune donnée</span>}/>
-                }
+                <StatefulDataTable columns={columns}
+                                   rows={stages}
+                                   rowHeight={50}
+                                   emptyMessage={() => <span className={style.centeredDiv}>Aucune donnée</span>}/>
 
             </div>
         </>

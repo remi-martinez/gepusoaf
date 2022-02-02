@@ -14,7 +14,7 @@ import Utils from "../../shared/Utils";
 
 function StudentForm() {
     const {id} = useParams();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
     const [classes, setClasses] = useState([]);
@@ -118,14 +118,15 @@ function StudentForm() {
             'login': valueNomUtilisateur,
             'mdp': valueMotDePasse,
             'enActivite': true,
-            'numClasse': valueClasse[0]
+            'numClasse': valueClasse[0]?.numClasse
         }
+
         if (formType.includes('new')) {
             apiService.callPost('etudiants', body)
-                .then(() => {
+                .then((result) => {
                     setLoading(false);
                     ToasterService.success('Stagiaire ajouté avec succès')
-                    navigate('/stagiaires');
+                    navigate('/stagiaires/' + result?.numEtudiant);
                 })
                 .catch(e => {
                     setLoading(false);
@@ -220,7 +221,6 @@ function StudentForm() {
                                         value={valueDateBTS}
                                         onChange={e => setValueDateBTS(e.target.value)}
                                         type="Date"
-                                        placeholder="Doe"
                                         clearOnEscape
                                     />
                                 </FlexGridItem>
