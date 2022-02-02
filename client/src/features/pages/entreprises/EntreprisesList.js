@@ -12,8 +12,8 @@ import Exception from "../../services/Exception";
 import {StyledSpinnerNext} from "baseui/spinner";
 import style from './entreprise.module.css'
 import {useNavigate} from "react-router-dom";
-import loginService from "../../services/LoginService";
 import ToasterService from "../../services/ToasterService";
+import LoginService from "../../services/LoginService";
 
 function EntreprisesList() {
     const [css] = useStyletron();
@@ -29,8 +29,8 @@ function EntreprisesList() {
             mapDataToValue: (data) => data.numEntreprise,
             renderCell: function Cell(data) {
                 let buttonProf;
-                if (loginService.getUserRolesCookie() === "teacher") {
-                    buttonProf =
+                if(LoginService.isTeacher()){
+                     buttonProf =
                         <Button onClick={() => navigate('/entreprises/' + data.value + '/edit')}>
                             <FontAwesomeIcon icon={faPen}/>
                         </Button>
@@ -138,7 +138,7 @@ function EntreprisesList() {
     }
 
     var rowActions;
-    if (loginService.getUserRolesCookie() === "teacher") {
+    if(LoginService.isTeacher()){
         rowActions = [{
             label: 'Delete',
             onClick: ({row}) => removeRow(row.id),

@@ -24,6 +24,10 @@ class LoginService extends React.Component {
         return LoginService.getUserCookie().status
     }
 
+    static isTeacher(){
+        return LoginService.getUserCookie().status === "teacher" ? true : false
+    }
+
     static statusToString(status) {
         if(status === 'teacher')
             return 'professeurs'
