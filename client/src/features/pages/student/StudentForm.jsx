@@ -8,7 +8,7 @@ import apiService from "../../services/ApiService";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import ToasterService from "../../services/ToasterService";
 import Exception from "../../services/Exception";
-import {StyledSpinnerNext} from "baseui/spinner";
+import {Spinner} from "baseui/spinner";
 import Utils from "../../shared/Utils";
 
 
@@ -154,7 +154,7 @@ function StudentForm() {
         <>
             {
                 loading ?
-                    <div style={{display: 'flex', padding: '5%', justifyContent: 'center'}}><StyledSpinnerNext/>
+                    <div style={{display: 'flex', padding: '5%', justifyContent: 'center'}}><Spinner/>
                     </div> :
                     error ? Utils.errorDiv('/stagiaires') :
                         <form onSubmit={e => e.preventDefault()}>

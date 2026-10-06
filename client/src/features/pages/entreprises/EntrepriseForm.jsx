@@ -9,7 +9,7 @@ import {Button, SIZE} from "baseui/button";
 import {Select} from "baseui/select";
 import ApiService from "../../services/ApiService";
 import Exception from "../../services/Exception";
-import {StyledSpinnerNext} from "baseui/spinner";
+import {Spinner} from "baseui/spinner";
 import {useNavigate} from "react-router-dom";
 import ToasterService from "../../services/ToasterService";
 
@@ -242,7 +242,7 @@ function EntrepriseForm(props) {
                         <Card title="Spécialités" className={style.cards}>
                             <StyledBody>
                                 <FormControl>
-                                    {loadingSpecs ? <StyledSpinnerNext/> :
+                                    {loadingSpecs ? <Spinner/> :
                                         <Select
                                             options={availableSpecs ? availableSpecs : []}
                                             valueKey="numSpec"

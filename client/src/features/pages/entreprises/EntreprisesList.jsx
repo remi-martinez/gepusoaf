@@ -9,7 +9,7 @@ import {StyledLink} from "baseui/link";
 import ApiService from "../../services/ApiService";
 import apiService from "../../services/ApiService";
 import Exception from "../../services/Exception";
-import {StyledSpinnerNext} from "baseui/spinner";
+import {Spinner} from "baseui/spinner";
 import style from './entreprise.module.css'
 import {useNavigate} from "react-router-dom";
 import ToasterService from "../../services/ToasterService";
@@ -149,7 +149,7 @@ function EntreprisesList() {
         <div className={css({height: '600px', width: 'auto'})}>
             {loading ?
                 <div className={style.centeredDiv}>
-                    <StyledSpinnerNext/>
+                    <Spinner/>
                 </div>
                 :
                 <StatefulDataTable columns={columns}

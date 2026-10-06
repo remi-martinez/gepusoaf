@@ -5,46 +5,40 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.17",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
-    "baseui": "^10.6.0",
-    "js-cookie": "^3.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "@fortawesome/react-fontawesome": "^0.2.6",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.1",
+    "baseui": "^13.0.0",
+    "js-cookie": "^3.0.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.22.5",
-    "react-router-dom": "^6.2.1",
-    "react-scripts": "^0.0.0",
+    "react-router-dom": "^7.18.4",
     "styletron-engine-atomic": "^1.4.8",
     "styletron-react": "^6.0.2",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "@testing-library/dom": "^10.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "devDependencies": {
-    "sass": "^1.97.0"
+    "@vitejs/plugin-react": "^6.1.2",
+    "jsdom": "^30.1.2",
+    "sass": "^1.97.0",
+    "vite": "^8.3.3",
+    "vitest": "^5.0.3"
+  },
+  "type": "module",
+  "overrides": {
+    "react-movable": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "d3-color": "^3.1.0"
   }
 }
